@@ -92,17 +92,6 @@ def vector_scalar_multiply(vector, scalar):
   return product_vector
 '''
 def vector_scalar_multiply(vector, scalar):
-    '''
-    Input:  vector: A vector stored as a list 
-            scalar: A scalar stored as a number
-    
-    Output: The product of vector and scalar stored as a list
-    
-    Method: Create an empty list and then store vector times scalar by
-            appending, in order, the scalar multiplied by each element of
-            vector
-    '''
-
     # Create a new list to server as our resultant vector
     product_vector = []
     
@@ -144,17 +133,6 @@ def matrix_scalar_multiply(matrix, scalar):
   return product_matrix
 '''
 def matrix_scalar_multiply(matrix, scalar):
-    '''
-    Input:  matrix: A matrix stored as a 2D list where each component list
-                represents a vector
-            scalar: A scalar stored as a number
-    
-    Output: The product of matrix and scalar, stored as a 2D list, where each
-            component list represents a vector, similar to the input matrix
-    
-    Method: Create an empty list then append, in order, each component vector
-            of matrix multiplied by the scalar using vector_scalar_multiply()
-    '''
 
     # Create a new list to serve as our resultant matrix
     product_matrix = []
@@ -199,20 +177,7 @@ def matrix_add(matrix_a, matrix_b):
   return matrix_sum
 '''
 def matrix_add(matrix_a, matrix_b):
-    '''
-    Input:  matrix_a, matrix_b: Two matrices stored as 2D lists, where each
-                component list represents vectors of the same type as each
-                other (rows/rows, or columns/columns). Assumed to be the same
-                size.
-    
-    Output: The sum of matrix_a and matrix_b, stored as a 2D list, where each
-                component list represents a vector of the same type as the
-                input matrices (rows or columns).
-    
-    Method: Create an empty list then append, in order, the sum of each 
-            corresponding component vector of matrix_a and matrix_b using
-            vector_add()
-    '''
+
     # Create a new list to server as our resultant matrix
     matrix_sum = []
     
@@ -270,19 +235,7 @@ def matrix_vector_multiply(matrix, vector):
   return product_vector
 '''
 def matrix_vector_multiply(matrix, vector):
-    '''
-    Input:  A matrix "matrix" stored as a 2D list, where each component list
-            represents a column vector, and a column vector "vector", stored
-            as a list. Assumed to be compatible to multiply.
-    
-    Output: The matrix-vector product of matrix and vector stored as a list,
-            where matrix is the left operand and vector the right.
-    
-    Method: Use the linear combination of columns method to multiply matrix and
-            vector. I.e. multiply each column of matrix by the corresponding 
-            element of vector, store those vectors, finally, sum each resulting
-            vector and return that final vector.
-    '''
+
     # Initialize a resultant vector full of 0s
     product_vector = []
     
@@ -339,20 +292,7 @@ def matrix_multiply(left_matrix, right_matrix):
   return matrix_product
 '''
 def matrix_multiply(left_matrix, right_matrix):
-    '''
-    Input:  left_matrix, right_matrix: Two matrices, each stored as a 2D list
-            where each component list represents a column vector. Assumed to be
-            compatible to multiply.
     
-    Output: A matrix that is the product of left_matrix and right_matrix,
-            stored as a 2D list where each component list represents a column
-            vector.
-    
-    Method: Create an empty list to represent the resultant matrix, then
-            calculate each column using matrix_vector_multiply(), appending to
-            the resultant matrix as they are calculated.
-    '''
-
     # Define our resultant matrix
     matrix_product = []
     
