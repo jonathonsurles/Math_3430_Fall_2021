@@ -314,12 +314,22 @@ if __name__ == '__main__':
     vector_a = [1, 2, 4]
     vector_b = [3, 1, 2]
     vector_c = [5, 0, 3]
+    matrix_a = [[1, 8, 4], [8, 7, 6], [3, 0, 9]]
+    matrix_b = [[5, 6], [1, 7], [4, 7]]
+    matrix_c = [[5, 8], [0, 5]]
     
     # Test cases
     # add_vectors(test_vector_a, test_vector_b) should output [4, 3, 6]
-    print(f'add_vectors test #1: {(add_vectors(test_vector_a, test_vector_b))}')
+    print(f'add_vectors test #1: {add_vectors(test_vector_a, test_vector_b)}')
     print(f'Expected result: {[4, 3, 6]}')
     # add_vectors(test_vector_a, test_vector_c) should output [6, 2, 7]
-    print(f'add_vectors test #2: {(add_vectors(test_vector_a, test_vector_b))}')
+    print(f'add_vectors test #2: {add_vectors(test_vector_a, test_vector_b)}')
     print(f'Expected result: {[6, 2, 7]}')
+
+    # vector_scalar_multiply(vector_a, scalar_a) should output [4, 8, 16]
+    print(f'vector_scalar_multiply test #1: {vector_scalar_multiply(vector_a, scalar_a)}')
+    print(f'Expected result: {[4, 8, 16]}')
+    # vector_scalar_multiply(vector_b, scalar_b) should output [21, 7, 14]
+    print(f'vector_scalar multiply test #2: {vector_scalar_multiply(vector_b, scalar_b)}')
+    print(f'Expected result: {[21, 7, 14]}')
 
