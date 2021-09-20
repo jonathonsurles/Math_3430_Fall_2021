@@ -315,8 +315,8 @@ if __name__ == '__main__':
     vector_b = [3, 1, 2]
     vector_c = [5, 0, 3]
     matrix_a = [[1, 8, 4], [8, 7, 6], [3, 0, 9]]
-    matrix_b = [[5, 6], [1, 7], [4, 7]]
-    matrix_c = [[5, 8], [0, 5]]
+    matrix_b = [[5, 6, 2], [1, 7, 0], [4, 7, 7]]
+    matrix_c = [[5, 8, 6], [0, 5, 2], [9, 4, 3]]
     
     # Test cases
     # add_vectors(test_vector_a, test_vector_b) should output [4, 3, 6]
@@ -332,4 +332,12 @@ if __name__ == '__main__':
     # vector_scalar_multiply(vector_b, scalar_b) should output [21, 7, 14]
     print(f'vector_scalar multiply test #2: {vector_scalar_multiply(vector_b, scalar_b)}')
     print(f'Expected result: {[21, 7, 14]}')
+
+    # matrix_scalar_multiply
+    
+    # matrix_add
+
+    # matrix_vector_multiply
+
+    # matrix_matrix_multiply
 
