@@ -356,10 +356,10 @@ if __name__ == '__main__':
     print(f'matrix_vector_multiply test #2: {matrix_vector_multiply(matrix_b, vector_b)}')
     print(f'Expected result:                {[24, 39, 20]}')
 
-    # matrix_matrix_multiply(matrix_a, matrix_b) should output [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
-    print(f'matrix_matrix_multiply test #1: {matrix_matrix_multiply(matrix_a, matrix_b)}')
-    print(f'Expected result:                {[[59, 82, 74], [57, 57, 46], [81, 81, 121]]}')
-    # matrix_matrix_multiply(matrix_b, matrix_c) should output [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
-    print(f'matrix_matrix_multiply test #2: {matrix_matrix_multiply(matrix_b, matrix_c)}')
-    print(f'Expected result:                {[[57, 128, 52], [13, 49, 14], [61, 103, 39]]}')
+    # matrix_multiply(matrix_a, matrix_b) should output [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
+    print(f'matrix_matriply test #1: {matrix_multiply(matrix_a, matrix_b)}')
+    print(f'Expected result:         {[[59, 82, 74], [57, 57, 46], [81, 81, 121]]}')
+    # matrix_multiply(matrix_b, matrix_c) should output [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
+    print(f'matrix_multiply test #2: {matrix_multiply(matrix_b, matrix_c)}')
+    print(f'Expected result:         {[[57, 128, 52], [13, 49, 14], [61, 103, 39]]}')
 
