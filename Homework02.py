@@ -319,6 +319,11 @@ if __name__ == '__main__':
     matrix_c = [[5, 8, 6], [0, 5, 2], [9, 4, 3]]
     
     # Test cases
+    # TODO: These technically go over the 80 character style guide limit...
+    # Could clean up with shorter variable names? Split into separate lines?
+    # Could use unittest module or create a special test function?
+    # Or just say whatever to PEP8 and go over 80 characters anyway
+
     # add_vectors(test_vector_a, test_vector_b) should output [4, 3, 6]
     print(f'add_vectors test #1: {add_vectors(test_vector_a, test_vector_b)}')
     print(f'Expected result: {[4, 3, 6]}')
@@ -330,10 +335,15 @@ if __name__ == '__main__':
     print(f'vector_scalar_multiply test #1: {vector_scalar_multiply(vector_a, scalar_a)}')
     print(f'Expected result: {[4, 8, 16]}')
     # vector_scalar_multiply(vector_b, scalar_b) should output [21, 7, 14]
-    print(f'vector_scalar multiply test #2: {vector_scalar_multiply(vector_b, scalar_b)}')
+    print(f'vector_scalar_multiply test #2: {vector_scalar_multiply(vector_b, scalar_b)}')
     print(f'Expected result: {[21, 7, 14]}')
 
-    # matrix_scalar_multiply
+    # matrix_scalar_multiply(matrix_a, scalar_a) should output [[4, 32, 16], [32, 28, 24], [12, 0, 36]]
+    print(f'matrix_scalar_multiply test #1: {matrix_scalar_multiply(matrix_a, scalar_a)}')
+    print(f'Expected result: {[[4, 32, 16], [32, 28, 24], [12, 0, 36]]}')
+    # matrix_scalar_multiply(matrix_b, scalar_b) should output [[35, 42, 14], [7, 49, 0], [28, 49, 49]]
+    print(f'matrix_scalar_multiply test #2: {matrix_scalar_multiply(matrix_b, scalar_b)}')
+    print(f'Expected result: {[[35, 42, 14], [7, 49, 0], [28, 49, 49]]}')
     
     # matrix_add
 
