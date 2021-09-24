@@ -249,7 +249,7 @@ def matrix_vector_multiply(matrix, vector):
     
     # Calculate the final result by adding each intermediate vector
     for inter_vector in inter_vectors:
-        product_vector = vector_add(product_vector, inter_vector)
+        product_vector = add_vectors(product_vector, inter_vector)
     
     # Return our product vector
     return product_vector
