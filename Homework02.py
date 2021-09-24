@@ -64,7 +64,6 @@ def add_vectors(vector_a,vector_b):
 #End Example
 
 
-
 # Problem 01
 '''
 Write an algorithm to implement scalar-vector multiplication.
@@ -146,7 +145,6 @@ def matrix_scalar_multiply(matrix, scalar):
     return product_matrix
 
 
-
 # Problem 03
 '''
 Write an algorithm to implement matrix addition.
@@ -188,7 +186,6 @@ def matrix_add(matrix_a, matrix_b):
     
     # Return our sum matrix
     return matrix_sum
-
 
 
 # Problem 04
@@ -352,7 +349,12 @@ if __name__ == '__main__':
     print(f'matrix_add test #2: {matrix_add(matrix_b, matrix_c)}')
     print(f'Expected result:    {[[10, 14, 8], [1, 12, 2], [13, 11, 10]]}')
 
-    # matrix_vector_multiply
+    # matrix_vector_multiply(matrix_a, vector_a) should output [29, 22, 52]
+    print(f'matrix_vector_multiply test #1: {matrix_vector_multiply(matrix_a, vector_a)}')
+    print(f'Expected result:                {[29, 22, 52]}')
+    # matrix_vector_multiply(matrix_b, vector_b) should output [24, 39, 20]
+    print(f'matrix_vector_multiply test #2: {matrix_vector_multiply(matrix_b, vector_b)}')
+    print(f'Expected result:                {[24, 39, 20]}')
 
     # matrix_matrix_multiply
 
