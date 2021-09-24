@@ -345,7 +345,12 @@ if __name__ == '__main__':
     print(f'matrix_scalar_multiply test #2: {matrix_scalar_multiply(matrix_b, scalar_b)}')
     print(f'Expected result:                {[[35, 42, 14], [7, 49, 0], [28, 49, 49]]}')
     
-    # matrix_add
+    # matrix_add(matrix_a, matrix_b) should output [[6, 14, 6], [9, 14, 6], [7, 7, 16]]
+    print(f'matrix_add test #1: {matrix_add(matrix_a, matrix_b)}')
+    print(f'Expected result:    {[[6, 14, 6], [9, 14, 6], [7, 7, 16]]}')
+    # matrix_add(matrix_a, matrix_b) should output [[10, 14, 8], [1, 12, 2], [13, 11, 10]]
+    print(f'matrix_add test #2: {matrix_add(matrix_b, matrix_c)}')
+    print(f'Expected result:    {[[10, 14, 8], [1, 12, 2], [13, 11, 10]]}')
 
     # matrix_vector_multiply
 
