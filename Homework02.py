@@ -184,7 +184,7 @@ def matrix_add(matrix_a, matrix_b):
     # Compute the sum by calculating the sum of each pair of corresponding
     # vectors in matrix_a and matrix_b
     for index in range(len(matrix_a)):
-        matrix_sum.append(vector_add(matrix_a[index], matrix_b[index]))
+        matrix_sum.append(add_vectors(matrix_a[index], matrix_b[index]))
     
     # Return our sum matrix
     return matrix_sum
