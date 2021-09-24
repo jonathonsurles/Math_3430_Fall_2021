@@ -325,10 +325,10 @@ if __name__ == '__main__':
     # Or just say whatever to PEP8 and go over 80 characters anyway
 
     # add_vectors(test_vector_a, test_vector_b) should output [4, 3, 6]
-    print(f'add_vectors test #1: {add_vectors(test_vector_a, test_vector_b)}')
+    print(f'add_vectors test #1: {add_vectors(vector_a, vector_b)}')
     print(f'Expected result: {[4, 3, 6]}')
     # add_vectors(test_vector_a, test_vector_c) should output [6, 2, 7]
-    print(f'add_vectors test #2: {add_vectors(test_vector_a, test_vector_b)}')
+    print(f'add_vectors test #2: {add_vectors(vector_a, vector_b)}')
     print(f'Expected result: {[6, 2, 7]}')
 
     # vector_scalar_multiply(vector_a, scalar_a) should output [4, 8, 16]
