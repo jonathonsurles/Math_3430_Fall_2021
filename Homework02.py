@@ -315,51 +315,117 @@ if __name__ == '__main__':
     matrix_b = [[5, 6, 2], [1, 7, 0], [4, 7, 7]]
     matrix_c = [[5, 8, 6], [0, 5, 2], [9, 4, 3]]
     
-    # Test cases
-    # TODO: These technically go over the 80 character style guide limit...
-    # Could clean up with shorter variable names? Split into separate lines?
-    # Could use unittest module or create a special test function?
-    # Or just say whatever to PEP8 and go over 80 characters anyway
+    '''
+    Test Cases
+    These could have been rolled into a testing function but I was unsure
+    if that would be allowed. They all follow the general format:
+    test = func(in1, in2)
+    expected = {expected}
+    result = test == expected
+    print(pass if result, else fail)
+    if not result:
+        print(expected, test)
+    '''
 
-    # add_vectors(test_vector_a, test_vector_b) should output [4, 3, 6]
-    print(f'add_vectors test #1: {add_vectors(vector_a, vector_b)}')
-    print(f'Expected result:     {[4, 3, 6]}')
-    # add_vectors(test_vector_a, test_vector_c) should output [6, 2, 7]
-    print(f'add_vectors test #2: {add_vectors(vector_a, vector_b)}')
-    print(f'Expected result:     {[6, 2, 7]}')
+    # add_vectors(vector_a, vector_b) should output [4, 3, 6]
+    a_v_t1 = add_vectors(vector_a, vector_b)
+    a_v_e1 = [4, 3, 6]
+    a_v_r1 = a_v_t1 == a_v_e1
+    print(f'add_vectors test #1: {"pass" if a_v_r1 else "fail"}')
+    if not a_v_r1:
+        print(f'Expected result: {a_v_e1} | Actual: {a_v_t1}')
 
-    # vector_scalar_multiply(vector_a, scalar_a) should output [4, 8, 16]
-    print(f'vector_scalar_multiply test #1: {vector_scalar_multiply(vector_a, scalar_a)}')
-    print(f'Expected result:                {[4, 8, 16]}')
-    # vector_scalar_multiply(vector_b, scalar_b) should output [21, 7, 14]
-    print(f'vector_scalar_multiply test #2: {vector_scalar_multiply(vector_b, scalar_b)}')
-    print(f'Expected result:                {[21, 7, 14]}')
-
-    # matrix_scalar_multiply(matrix_a, scalar_a) should output [[4, 32, 16], [32, 28, 24], [12, 0, 36]]
-    print(f'matrix_scalar_multiply test #1: {matrix_scalar_multiply(matrix_a, scalar_a)}')
-    print(f'Expected result:                {[[4, 32, 16], [32, 28, 24], [12, 0, 36]]}')
-    # matrix_scalar_multiply(matrix_b, scalar_b) should output [[35, 42, 14], [7, 49, 0], [28, 49, 49]]
-    print(f'matrix_scalar_multiply test #2: {matrix_scalar_multiply(matrix_b, scalar_b)}')
-    print(f'Expected result:                {[[35, 42, 14], [7, 49, 0], [28, 49, 49]]}')
+    # add_vectors(vector_a, vector_c) should output [6, 2, 7]
+    a_v_t2 = add_vectors(vector_a, vector_c)
+    a_v_e2 = [6, 2, 7]
+    a_v_r2 = a_v_t2 == a_v_e2
+    print(f'add_vectors test #2: {"pass" if a_v_r2 else "fail"}')
+    if not a_v_r2:
+        print(f'Expected result: {a_v_e2} | Actual: {a_v_t2}')
     
-    # matrix_add(matrix_a, matrix_b) should output [[6, 14, 6], [9, 14, 6], [7, 7, 16]]
-    print(f'matrix_add test #1: {matrix_add(matrix_a, matrix_b)}')
-    print(f'Expected result:    {[[6, 14, 6], [9, 14, 6], [7, 7, 16]]}')
-    # matrix_add(matrix_a, matrix_b) should output [[10, 14, 8], [1, 12, 2], [13, 11, 10]]
-    print(f'matrix_add test #2: {matrix_add(matrix_b, matrix_c)}')
-    print(f'Expected result:    {[[10, 14, 8], [1, 12, 2], [13, 11, 10]]}')
+    # vector_scalar_multiply(vector_a, scalar_a) should output [4, 8, 16]
+    v_s_m_t1 = vector_scalar_multiply(vector_a, scalar_a)
+    v_s_m_e1 = [4, 8, 16]
+    v_s_m_r1 = v_s_m_t1 == v_s_m_e1
+    print(f'vector_scalar_multiply test #1: {"pass" if v_s_m_r1 else "fail"}')
+    if not v_s_m_r1:
+        print(f'Expected result: {v_s_m_e1} | Actual: {v_s_m_t1}')
+
+    # vector_scalar_multiply(vector_b, scalar_b) should output [21, 7, 14]
+    v_s_m_t2 = vector_scalar_multiply(vector_b, scalar_b)
+    v_s_m_e2 = [21, 7, 14]
+    v_s_m_r2 = v_s_m_t2 == v_s_m_e2
+    print(f'vector_scalar_multiply test #2: {"pass" if v_s_m_r2 else "fail"}')
+    if not v_s_m_r2:
+        print(f'Expected result: {v_s_m_e2} | Actual: {v_s_m_t2}')
+
+    # matrix_scalar_multiply(matrix_a, scalar_a) should output:
+    # [[4, 32, 16], [32, 28, 24], [12, 0, 36]]
+    m_s_m_t1 = matrix_scalar_multiply(matrix_a, scalar_a)
+    m_s_m_e1 = [[4, 32, 16], [32, 28, 24], [12, 0, 36]]
+    m_s_m_r1 = m_s_m_t1 == m_s_m_e1
+    print(f'matrix_scalar_multiply test #1: {"pass" if m_s_m_r1 else "fail"}')
+    if not m_s_m_r1:
+        print(f'Expected result: {m_s_m_e1} | Actual: {m_s_m_t1}')
+ 
+    # matrix_scalar_multiply(matrix_b, scalar_b) should output:
+    # [[35, 42, 14], [7, 49, 0], [28, 49, 49]]
+    m_s_m_t2 = matrix_scalar_multiply(matrix_b, scalar_b)
+    m_s_m_e2 = [[35, 42, 14], [7, 49, 0], [28, 49, 49]]
+    m_s_m_r2 = m_s_m_t2 == m_s_m_e2
+    print(f'matrix_scalar_multiply test #2: {"pass" if m_s_m_r2 else "fail"}')
+    if not m_s_m_r2:
+        print(f'Expected result: {m_s_m_e2} | Actual: {m_s_m_t2}')
+    
+    # matrix_add(matrix_a, matrix_b) should output:
+    # [[6, 14, 6], [9, 14, 6], [7, 7, 16]]
+    m_a_t1 = matrix_add(matrix_a, matrix_b)
+    m_a_e1 = [[6, 14, 6], [9, 14, 6], [7, 7, 16]]
+    m_a_r1 = m_a_t1 == m_a_e1
+    print(f'matrix_add test #1: {"pass" if m_a_r1 else "fail"}')
+    if not m_a_r1:
+        print(f'Expected result: {m_a_e1} | Actual: {m_a_t1}')
+    
+    # matrix_add(matrix_b, matrix_c) should output:
+    # [[10, 14, 8], [1, 12, 2], [13, 11, 10]]
+    m_a_t2 = matrix_add(matrix_b, matrix_c)
+    m_a_e2 = [[10, 14, 8], [1, 12, 2], [13, 11, 10]]
+    m_a_r2 = m_a_t2 == m_a_e2
+    print(f'matrix_add test #2: {"pass" if m_a_r2 else "fail"}')
+    if not m_a_r2:
+        print(f'Expected result: {m_a_e2} | Actual: {m_a_t2}')
 
     # matrix_vector_multiply(matrix_a, vector_a) should output [29, 22, 52]
-    print(f'matrix_vector_multiply test #1: {matrix_vector_multiply(matrix_a, vector_a)}')
-    print(f'Expected result:                {[29, 22, 52]}')
+    m_v_m_t1 = matrix_vector_multiply(matrix_a, vector_a)
+    m_v_m_e1 = [29, 22, 52]
+    m_v_m_r1 = m_v_m_t1 == m_v_m_e1
+    print(f'matrix_vector_multiply test #1: {"pass" if m_v_m_r1 else "fail"}')
+    if not m_v_m_r1:
+        print(f'Expected result: {m_v_m_e1} | Actual: {m_v_m_t1}') 
+    
     # matrix_vector_multiply(matrix_b, vector_b) should output [24, 39, 20]
-    print(f'matrix_vector_multiply test #2: {matrix_vector_multiply(matrix_b, vector_b)}')
-    print(f'Expected result:                {[24, 39, 20]}')
+    m_v_m_t2 = matrix_vector_multiply(matrix_b, vector_b)
+    m_v_m_e2 = [24, 39, 20]
+    m_v_m_r2 = m_v_m_t2 == m_v_m_e2
+    print(f'matrix_vector_multiply test #2: {"pass" if m_v_m_r2 else "fail"}')
+    if not m_v_m_r2:
+        print(f'Expected result: {m_v_m_e2} | Actual: {m_v_m_t2}') 
 
-    # matrix_multiply(matrix_a, matrix_b) should output [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
-    print(f'matrix_matriply test #1: {matrix_multiply(matrix_a, matrix_b)}')
-    print(f'Expected result:         {[[59, 82, 74], [57, 57, 46], [81, 81, 121]]}')
-    # matrix_multiply(matrix_b, matrix_c) should output [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
-    print(f'matrix_multiply test #2: {matrix_multiply(matrix_b, matrix_c)}')
-    print(f'Expected result:         {[[57, 128, 52], [13, 49, 14], [61, 103, 39]]}')
+    # matrix_multiply(matrix_a, matrix_b) should output:
+    # [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
+    m_m_t1 = matrix_multiply(matrix_a, matrix_b)
+    m_m_e1 = [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
+    m_m_r1 = m_m_t1 == m_m_e1
+    print(f'matrix_multiply test #1: {"pass" if m_m_r1 else "fail"}')
+    if not m_m_r1:
+        print(f'Expected result: {m_m_e1} | Actual: {m_m_t1}')
+    
+    # matrix_multiply(matrix_b, matrix_c) should output:
+    # [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
+    m_m_t2 = matrix_multiply(matrix_b, matrix_c)
+    m_m_e2 = [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
+    m_m_r2 = m_m_t2 == m_m_e2
+    print(f'matrix_multiply test #1: {"pass" if m_m_r2 else "fail"}')
+    if not m_m_r2:  
+        print(f'Expected result: {m_m_e2} | Actual: {m_m_t2}')
 
