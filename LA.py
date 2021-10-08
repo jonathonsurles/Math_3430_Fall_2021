@@ -163,6 +163,135 @@ def matrix_multiply(left_matrix: list[list[complex]],
     return matrix_product
 
 
+# TODO: needs testing
+def abs_value(scalar: complex) -> float:
+    """Find the absolute value of a complex number
+    
+    Square the real and imaginary parts of scalar, then take the square root
+    of their sum. Return that result
+
+    Args:
+        scalar: a complex number
+
+    Returns:
+        The absolute value of the input scalar
+    """
+    # Calculate aboslute value, relying on (** .5) being positive root
+    result = ((scalar.real ** 2) + (scalar.imag ** 2)) ** .5
+
+    # Return our result
+    return result
+
+
+# TODO: needs testing
+def p_norm_finite(vector: list[complex], p=2: int) -> float:
+    """Find the p-norm of a vector. Defaults to 2-norm (euclidian norm)
+
+    For every element in vector, add element^p to a running total. Then take
+    the pth root of that sum, and return it
+
+    Args:
+        vector: a list of complex numbers, representing a vector
+        p: an integer (floats are also technically defined behavior). Must be
+           real and >= 1
+
+    Returns:
+        The p norm of vector
+    """
+    # Running total
+    result = 0.
+
+    # Sum of each element to the pth power
+    for element in vector:
+        result += (abs_value(element) ** p)
+
+    # pth root and return
+    result ** (1 / p)
+    return result
+
+
+def inf_norm(vector: list[complex]) -> float:
+    """Find the infinite norm of a vector.
+
+    Create a vector storing the absolute value for each element in vector.
+    Find and return the greatest of those elements
+
+    Args:
+        vector: a list of complex numbers, representing a vector
+
+    Returns:
+        The infinite norm of vector, i.e. the greatest absolute value of all
+        elements of vector.
+    """
+    result = None
+
+    # Create a vector of absolute values
+    abs_vector = [abs_value(element) for element in vector]
+    
+    # Find and return the greates absolute value
+    result = max(abs_vector)
+    return result
+
+
+# TODO: needs testing
+def p_norm(vector: list[complex], p=2: int, inf=False: bool) -> float:
+    """Find the p-norm of a vector. Defaults to 2-norm. Can calulate inf norm
+
+    If inf is False, find the norm using the pre-existing p_norm_finite.
+    If inf is True, create a vector storing the absolute value for each 
+    element in vector. Find and return the greatest of those elements
+    
+    Args:
+        vector: a list of complex numbers, representing a vector
+        p: an integer (floats are also defined behacior). Must be real and
+           >= 1.
+        inf: a boolean. If true, act as if p is infinite
+
+    Returns:
+        The p norm of vector, or infinity norm if inf is True
+    """
+    result = None
+
+    # Finite case
+    if not inf:
+        result = p_norm_finite(vector, p)
+
+    # Infinite case
+    else:
+        result = inf_norm(vector)
+
+    return result
+
+
+# TODO: needs testing
+def inner_product(left_vector: list[complex],
+                  right_vector: list[complex]) -> complex:
+    """Find the inner product of two vectors.
+
+    Calculate the conjugate transpose of left_vector, them multiply
+    element-wise this conjugate with right_vector, adding each term into the
+    result. Return the result
+
+    Args:
+        left_vector: a list of complex numbers, representing a vector.
+        right_vector: a list of complex numbers, representing a vector. Must
+                      be the same size as left_vector.
+
+    Returns:
+        The inner product <left_vector, right_vector>
+    """
+    # Calculate the conjugate transpose of left_vector
+    left_vector_ct = [complex(element.real, -1 * element.imag) \
+                      for element in left_vector]
+
+    # Calculate the inner product
+    result = 0
+    for left_element_c, right_element in zip(left_vector_ct, right_vector):
+        result += left_element_c * right_element
+
+    return result
+
+
 # Test if file is run directly
 if __name__ == '__main__':
 
