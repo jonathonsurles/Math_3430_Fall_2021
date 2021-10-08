@@ -1,90 +1,86 @@
-def add_vectors(vector_a: list[int], vector_b: list[int]) -> list[int]:
+# TODO : unit testing for all functions
+
+
+def add_vectors(vector_a: list[complex],
+                vector_b: list[complex]) -> list[complex]:
     """Add two vectors stored as lists
 
-    Create an empty list of appropriate size and store the sums of the
-    corresponding components of each input
+    Builds the vector sum element-wise by adding each corresponding element
+    of the two vectors
 
     Args:
-        vector_a: A list of integers representing a vector
-        vector_b: A list of integers representing a vector, must be the same
-                  length as vector_a
+        vector_a: A list of complex numbers representing a vector
+        vector_b: A list of complex numbers representing a vector, must be the
+                  same length as vector_a
 
     Returns:
         The sum of vector_a and vector_b, stored as a list of numbers
     """
-    result = [0 for element in vector_a]
-    for index in range(len(result)):
-        result[index] = vector_a[index] + vector_b[index]
+    result = [element_a + element_b \
+              for element_a, element_b in zip(vector_a, vector_b)]
     return result
 
 
-def vector_scalar_multiply(vector: list[int], scalar: int) -> list[int]:
+def vector_scalar_multiply(vector: list[complex],
+                           scalar: int) -> list[complex]:
     """Multiplies a vector times a scalar
 
-    Create an empty list then store the result of vector times scalar by
-    appending the scalar multiplied by each element of vector, in order
+    Builds the matrix-scalar product element-wise by multiplying each element
+    of the vector by the scalar
 
     Args:
-        vector: a list of integers representing a vector
-        scalar: an integer
+        vector: a list of complex numbers representing a vector
+        scalar: a complex number
 
     Returns:
         The product of vector and scalar, represented as a list
     """
-    # Create a new list to server as our resultant vector
-    product_vector = []
-
-    # Compute the product by calculating each element then append it to result
-    for element in vector:
-        product_vector.append(element * scalar)
+    # Create the product vector
+    product_vector = [element * scalar for element in vector]
 
     # Return our product vector
     return product_vector
 
 
-def matrix_scalar_multiply(matrix: list[list[int]], scalar: int) \
-        -> list[list[int]]:
+def matrix_scalar_multiply(matrix: list[list[complex]],
+                           scalar: complex) -> list[list[complex]]:
     """Multiplies a matrix by a scalar
 
-    Creates an empty list, then appends each component vector of the input
-    matrix multiplied by the scalar, in order
+    Builds the matrix-scalar product vector-wise by multiplying each component
+    vector of matrix by the scalar
 
     Args:
-        matrix: a list of list of integers, representing a matrix. Each
+        matrix: a list of list of complex numbers, representing a matrix. Each
                 component list represents a vector of the matrix, regardless
                 of whether these vectors are rows or columns.
-        scalar: an integer
+        scalar: a complex number
 
     Returns:
         The product of matrix times scalar, represented as a list of list of
-        integers, where each component list represents a vector of the same
-        type as the input (rows or columns)
+        complex numbers, where each component list represents a vector of the
+        same type as the input matrix (rows or columns)
     """
 
-    # Create a new list to serve as our resultant matrix
-    product_matrix = []
-
-    # Compute the product by calculating the product of each vector times the
-    # scalar, and appending it to our result
-    for vector in matrix:
-        product_matrix.append(vector_scalar_multiply(vector, scalar))
+    # Create the product matrix
+    product_matrix = [vector_scalar_multiply(vector, scalar) \
+                      for vector in matrix]
 
     # Return our product matrix
     return product_matrix
 
 
-def matrix_add(matrix_a: list[list[int]], matrix_b: list[list[int]]) \
-        -> list[list[int]]:
+def matrix_add(matrix_a: list[list[complex]],
+               matrix_b: list[list[complex]]) -> list[list[complex]]:
     """Adds two matrices
 
-    Creates an empty list, then appends the sum of eah corresponding vector
-    of the input matrices
+    Builds the matrix sum by adding the corresponding columns of matrix_a and
+    matrix_b
 
     Args:
-        matrix_a: a list of list of integers, representing a matrix. Each
-                  component list representing either a row or column vector.
-        matrix_b: a list of list of integers, representing a matrix. Each
-                  component list representing either a row or column vector.
+        matrix_a: a list of list of complex numbers, representing a matrix.
+                  Each component list representing either a row or column.
+        matrix_b: a list of list of complex numbers, representing a matrix.
+                  Each component list representing either a row or column.
                   The matrix must be of the same length as matrix_a, each
                   component list must be the same length as a component list
                   of matrix_a, and it must represent the same type of vector
@@ -92,92 +88,76 @@ def matrix_add(matrix_a: list[list[int]], matrix_b: list[list[int]]) \
 
     Returns:
         The sum of matrix_a and matrix_b, represented as a list of list of
-        integers, where each component list represents a vector, either row
-        vectors or column vectors depending on the inputs.
+        complex numbers, where each component list represents either row
+        vectors or column vectors, depending on the input matrices.
     """
 
-    # Create a new list to server as our resultant matrix
-    matrix_sum = []
-
-    # Compute the sum by calculating the sum of each pair of corresponding
-    # vectors in matrix_a and matrix_b
-    for index in range(len(matrix_a)):
-        matrix_sum.append(add_vectors(matrix_a[index], matrix_b[index]))
+    # Create the sum matrix
+    matrix_sum = [add_vectors(column_a, column_b) \
+                  for column_a, column_b in zip(matrix_a, matrix_b)]
 
     # Return our sum matrix
     return matrix_sum
 
 
-def matrix_vector_multiply(matrix: list[list[int]], vector: list[int]) \
-        -> list[int]:
+def matrix_vector_multiply(matrix: list[list[complex]],
+                           vector: list[complex]) -> list[complex]:
     """Multiplies a matrix by a vector
 
     Use the linear combination of columns method to multiply the input matrix
     by the input vector. Multiply each column of matrix by the corresponding
-    element of vector, then sum each of those vectors, returning that sum.
+    element of vector, summing each of those vectors as calculated, then
+    return that sum.
 
     Args:
-        matrix: a list of list of integers representing a matrix. Each
+        matrix: a list of list of complex numbers representing a matrix. Each
                 component list must represent a column vector.
-        vector: a list of integers representing a column vector. Must have
-                the same number of elements as matrix
+        vector: a list of complex numbers representing a column vector. Must
+                have the same number of elements as matrix
 
     Returns:
         The matrix-vector product of matrix and vector, stored as a list of
-        integers.
+        complex numbers.
     """
 
     # Initialize a resultant vector full of 0s
-    product_vector = []
-
-    for element in matrix[0]:
-        product_vector.append(0)
-
-    # Initialize a list to store our intermediate vectors
-    inter_vectors = []
+    product_vector = [0 for _ in matrix[0]]
 
     # Calculate the product of each column of matrix with the corresponding
-    # element of vector, and store it as an intermediate vector
+    # element of vector, then add to the result vector
     for index in range(len(vector)):
         inter_vector = vector_scalar_multiply(matrix[index], vector[index])
-        inter_vectors.append(inter_vector)
-
-    # Calculate the final result by adding each intermediate vector
-    for inter_vector in inter_vectors:
         product_vector = add_vectors(product_vector, inter_vector)
 
     # Return our product vector
     return product_vector
 
 
-def matrix_multiply(left_matrix: list[list[int]],
-                    right_matrix: list[list[int]]) -> list[list[int]]:
+def matrix_multiply(left_matrix: list[list[complex]],
+                    right_matrix: list[list[complex]]) -> list[list[complex]]:
     """Multiplies two matrices together
 
-    Performs the operation left_matrix * right_matrix by calculating each
-    column using a linear combination fo columns, and appending each column
-    together in a resultant matrix
+    Performs the operation left_matrix * right_matrix by building a resultant
+    matrix column by column, calculating each component using a linear
+    combination of columns
 
     Args:
-        left_matrix: A list of lists of integers, representing a matrix. Each
-                     component list must represent a column vector.
-        right_matrix: A list of lists of integers, representing a matrix. Each
-                      component list must represent a column vector, and the
-                      length of each column vector must be equal to the number
-                      of vectors in left_matrix
+        left_matrix: A list of lists of complex numbers, representing a matrix.
+                     Each component list must represent a column vector.
+        right_matrix: A list of lists of complex numbers, representing a
+                      matrix. Each component list must represent a column
+                      vector, and the length of each column vector must be
+                      equal to the number of vectors in left_matrix
 
     Returns:
         The product of left_matrix * right_matrix, stored as a list of lists
-        of integers, where each component list represents a column vector.
+        of complex numbers, where each component list represents a column
+        vector of the returned matrix.
     """
 
-    # Define our resultant matrix
-    matrix_product = []
-
-    # Calculate each column using linear combination of columns and append to
-    # the resultant matrix
-    for column in right_matrix:
-        matrix_product.append(matrix_vector_multiply(left_matrix, column))
+    # Create our resultant matrix
+    matrix_product = [matrix_vector_multiply(left_matrix, column) \
+                      for column in right_matrix]
 
     # Return our resultant matrix
     return matrix_product
