@@ -1,4 +1,9 @@
-# TODO : unit testing for all functions
+# TODO: Change tests for all functions to unit tests
+"""Perform linear algebraic operations on matrices and vectors
+"""
+
+
+# Begin Homework 03 functions
 
 
 def add_vectors(vector_a: list[complex],
@@ -16,7 +21,7 @@ def add_vectors(vector_a: list[complex],
     Returns:
         The sum of vector_a and vector_b, stored as a list of numbers
     """
-    result = [element_a + element_b \
+    result = [element_a + element_b
               for element_a, element_b in zip(vector_a, vector_b)]
     return result
 
@@ -62,7 +67,7 @@ def matrix_scalar_multiply(matrix: list[list[complex]],
     """
 
     # Create the product matrix
-    product_matrix = [vector_scalar_multiply(vector, scalar) \
+    product_matrix = [vector_scalar_multiply(vector, scalar)
                       for vector in matrix]
 
     # Return our product matrix
@@ -93,7 +98,7 @@ def matrix_add(matrix_a: list[list[complex]],
     """
 
     # Create the sum matrix
-    matrix_sum = [add_vectors(column_a, column_b) \
+    matrix_sum = [add_vectors(column_a, column_b)
                   for column_a, column_b in zip(matrix_a, matrix_b)]
 
     # Return our sum matrix
@@ -125,8 +130,8 @@ def matrix_vector_multiply(matrix: list[list[complex]],
 
     # Calculate the product of each column of matrix with the corresponding
     # element of vector, then add to the result vector
-    for index in range(len(vector)):
-        inter_vector = vector_scalar_multiply(matrix[index], vector[index])
+    for m_vector, v_element in zip(matrix, vector):
+        inter_vector = vector_scalar_multiply(m_vector, v_element)
         product_vector = add_vectors(product_vector, inter_vector)
 
     # Return our product vector
@@ -156,17 +161,20 @@ def matrix_multiply(left_matrix: list[list[complex]],
     """
 
     # Create our resultant matrix
-    matrix_product = [matrix_vector_multiply(left_matrix, column) \
+    matrix_product = [matrix_vector_multiply(left_matrix, column)
                       for column in right_matrix]
 
     # Return our resultant matrix
     return matrix_product
 
 
+# End Homework 03 functions, begin Homework 04 functions
+
+
 # TODO: needs testing
 def abs_value(scalar: complex) -> float:
     """Find the absolute value of a complex number
-    
+
     Square the real and imaginary parts of scalar, then take the square root
     of their sum. Return that result
 
@@ -184,7 +192,7 @@ def abs_value(scalar: complex) -> float:
 
 
 # TODO: needs testing
-def p_norm_finite(vector: list[complex], p=2: int) -> float:
+def p_norm_finite(vector: list[complex], p: float=2) -> float:
     """Find the p-norm of a vector. Defaults to 2-norm (euclidian norm)
 
     For every element in vector, add element^p to a running total. Then take
@@ -192,8 +200,7 @@ def p_norm_finite(vector: list[complex], p=2: int) -> float:
 
     Args:
         vector: a list of complex numbers, representing a vector
-        p: an integer (floats are also technically defined behavior). Must be
-           real and >= 1
+        p: a float. Must be real and >= 1.
 
     Returns:
         The p norm of vector
@@ -206,10 +213,11 @@ def p_norm_finite(vector: list[complex], p=2: int) -> float:
         result += (abs_value(element) ** p)
 
     # pth root and return
-    result ** (1 / p)
+    result **= (1 / p)
     return result
 
 
+# TODO: needs testing
 def inf_norm(vector: list[complex]) -> float:
     """Find the infinite norm of a vector.
 
@@ -227,24 +235,22 @@ def inf_norm(vector: list[complex]) -> float:
 
     # Create a vector of absolute values
     abs_vector = [abs_value(element) for element in vector]
-    
+
     # Find and return the greates absolute value
     result = max(abs_vector)
     return result
 
 
 # TODO: needs testing
-def p_norm(vector: list[complex], p=2: int, inf=False: bool) -> float:
+def p_norm(vector: list[complex], p: float=2, inf: bool=False) -> float:
     """Find the p-norm of a vector. Defaults to 2-norm. Can calulate inf norm
 
-    If inf is False, find the norm using the pre-existing p_norm_finite.
-    If inf is True, create a vector storing the absolute value for each 
-    element in vector. Find and return the greatest of those elements
-    
+    If inf is False, find the norm using the pre-existing p_norm_finite().
+    If inf is True, find the norm using the pre-existing inf_norm()
+
     Args:
         vector: a list of complex numbers, representing a vector
-        p: an integer (floats are also defined behacior). Must be real and
-           >= 1.
+        p: a float. Must be real and >= 1.
         inf: a boolean. If true, act as if p is infinite
 
     Returns:
@@ -281,7 +287,7 @@ def inner_product(left_vector: list[complex],
         The inner product <left_vector, right_vector>
     """
     # Calculate the conjugate transpose of left_vector
-    left_vector_ct = [complex(element.real, -1 * element.imag) \
+    left_vector_ct = [complex(element.real, -1 * element.imag)
                       for element in left_vector]
 
     # Calculate the inner product
@@ -292,18 +298,21 @@ def inner_product(left_vector: list[complex],
     return result
 
 
+# End Homework 04 Problems
+
+
 # Test if file is run directly
 if __name__ == '__main__':
 
     # Variables for testing
-    scalar_a = 4
-    scalar_b = 7
-    vector_a = [1, 2, 4]
-    vector_b = [3, 1, 2]
-    vector_c = [5, 0, 3]
-    matrix_a = [[1, 8, 4], [8, 7, 6], [3, 0, 9]]
-    matrix_b = [[5, 6, 2], [1, 7, 0], [4, 7, 7]]
-    matrix_c = [[5, 8, 6], [0, 5, 2], [9, 4, 3]]
+    t_scalar_a = 4
+    t_scalar_b = 7
+    t_vector_a = [1, 2, 4]
+    t_vector_b = [3, 1, 2]
+    t_vector_c = [5, 0, 3]
+    t_matrix_a = [[1, 8, 4], [8, 7, 6], [3, 0, 9]]
+    t_matrix_b = [[5, 6, 2], [1, 7, 0], [4, 7, 7]]
+    t_matrix_c = [[5, 8, 6], [0, 5, 2], [9, 4, 3]]
 
     """
     Test Cases
@@ -317,102 +326,102 @@ if __name__ == '__main__':
         print(expected, test)
     """
 
-    # add_vectors(vector_a, vector_b) should output [4, 3, 6]
-    a_v_t1 = add_vectors(vector_a, vector_b)
+    # add_vectors(t_vector_a, t_vector_b) should output [4, 3, 6]
+    a_v_t1 = add_vectors(t_vector_a, t_vector_b)
     a_v_e1 = [4, 3, 6]
     a_v_r1 = a_v_t1 == a_v_e1
     print(f'add_vectors test #1: {"pass" if a_v_r1 else "fail"}')
     if not a_v_r1:
         print(f'Expected result: {a_v_e1} | Actual: {a_v_t1}')
 
-    # add_vectors(vector_a, vector_c) should output [6, 2, 7]
-    a_v_t2 = add_vectors(vector_a, vector_c)
+    # add_vectors(t_vector_a, t_vector_c) should output [6, 2, 7]
+    a_v_t2 = add_vectors(t_vector_a, t_vector_c)
     a_v_e2 = [6, 2, 7]
     a_v_r2 = a_v_t2 == a_v_e2
     print(f'add_vectors test #2: {"pass" if a_v_r2 else "fail"}')
     if not a_v_r2:
         print(f'Expected result: {a_v_e2} | Actual: {a_v_t2}')
 
-    # vector_scalar_multiply(vector_a, scalar_a) should output [4, 8, 16]
-    v_s_m_t1 = vector_scalar_multiply(vector_a, scalar_a)
+    # vector_scalar_multiply(t_vector_a, t_scalar_a) should output [4, 8, 16]
+    v_s_m_t1 = vector_scalar_multiply(t_vector_a, t_scalar_a)
     v_s_m_e1 = [4, 8, 16]
     v_s_m_r1 = v_s_m_t1 == v_s_m_e1
     print(f'vector_scalar_multiply test #1: {"pass" if v_s_m_r1 else "fail"}')
     if not v_s_m_r1:
         print(f'Expected result: {v_s_m_e1} | Actual: {v_s_m_t1}')
 
-    # vector_scalar_multiply(vector_b, scalar_b) should output [21, 7, 14]
-    v_s_m_t2 = vector_scalar_multiply(vector_b, scalar_b)
+    # vector_scalar_multiply(t_vector_b, t_scalar_b) should output [21, 7, 14]
+    v_s_m_t2 = vector_scalar_multiply(t_vector_b, t_scalar_b)
     v_s_m_e2 = [21, 7, 14]
     v_s_m_r2 = v_s_m_t2 == v_s_m_e2
     print(f'vector_scalar_multiply test #2: {"pass" if v_s_m_r2 else "fail"}')
     if not v_s_m_r2:
         print(f'Expected result: {v_s_m_e2} | Actual: {v_s_m_t2}')
 
-    # matrix_scalar_multiply(matrix_a, scalar_a) should output:
+    # matrix_scalar_multiply(t_matrix_a, t_scalar_a) should output:
     # [[4, 32, 16], [32, 28, 24], [12, 0, 36]]
-    m_s_m_t1 = matrix_scalar_multiply(matrix_a, scalar_a)
+    m_s_m_t1 = matrix_scalar_multiply(t_matrix_a, t_scalar_a)
     m_s_m_e1 = [[4, 32, 16], [32, 28, 24], [12, 0, 36]]
     m_s_m_r1 = m_s_m_t1 == m_s_m_e1
     print(f'matrix_scalar_multiply test #1: {"pass" if m_s_m_r1 else "fail"}')
     if not m_s_m_r1:
         print(f'Expected result: {m_s_m_e1} | Actual: {m_s_m_t1}')
 
-    # matrix_scalar_multiply(matrix_b, scalar_b) should output:
+    # matrix_scalar_multiply(t_matrix_b, t_scalar_b) should output:
     # [[35, 42, 14], [7, 49, 0], [28, 49, 49]]
-    m_s_m_t2 = matrix_scalar_multiply(matrix_b, scalar_b)
+    m_s_m_t2 = matrix_scalar_multiply(t_matrix_b, t_scalar_b)
     m_s_m_e2 = [[35, 42, 14], [7, 49, 0], [28, 49, 49]]
     m_s_m_r2 = m_s_m_t2 == m_s_m_e2
     print(f'matrix_scalar_multiply test #2: {"pass" if m_s_m_r2 else "fail"}')
     if not m_s_m_r2:
         print(f'Expected result: {m_s_m_e2} | Actual: {m_s_m_t2}')
 
-    # matrix_add(matrix_a, matrix_b) should output:
+    # matrix_add(t_matrix_a, t_matrix_b) should output:
     # [[6, 14, 6], [9, 14, 6], [7, 7, 16]]
-    m_a_t1 = matrix_add(matrix_a, matrix_b)
+    m_a_t1 = matrix_add(t_matrix_a, t_matrix_b)
     m_a_e1 = [[6, 14, 6], [9, 14, 6], [7, 7, 16]]
     m_a_r1 = m_a_t1 == m_a_e1
     print(f'matrix_add test #1: {"pass" if m_a_r1 else "fail"}')
     if not m_a_r1:
         print(f'Expected result: {m_a_e1} | Actual: {m_a_t1}')
 
-    # matrix_add(matrix_b, matrix_c) should output:
+    # matrix_add(t_matrix_b, t_matrix_c) should output:
     # [[10, 14, 8], [1, 12, 2], [13, 11, 10]]
-    m_a_t2 = matrix_add(matrix_b, matrix_c)
+    m_a_t2 = matrix_add(t_matrix_b, t_matrix_c)
     m_a_e2 = [[10, 14, 8], [1, 12, 2], [13, 11, 10]]
     m_a_r2 = m_a_t2 == m_a_e2
     print(f'matrix_add test #2: {"pass" if m_a_r2 else "fail"}')
     if not m_a_r2:
         print(f'Expected result: {m_a_e2} | Actual: {m_a_t2}')
 
-    # matrix_vector_multiply(matrix_a, vector_a) should output [29, 22, 52]
-    m_v_m_t1 = matrix_vector_multiply(matrix_a, vector_a)
+    # matrix_vector_multiply(t_matrix_a, t_vector_a) should output [29, 22, 52]
+    m_v_m_t1 = matrix_vector_multiply(t_matrix_a, t_vector_a)
     m_v_m_e1 = [29, 22, 52]
     m_v_m_r1 = m_v_m_t1 == m_v_m_e1
     print(f'matrix_vector_multiply test #1: {"pass" if m_v_m_r1 else "fail"}')
     if not m_v_m_r1:
         print(f'Expected result: {m_v_m_e1} | Actual: {m_v_m_t1}')
 
-    # matrix_vector_multiply(matrix_b, vector_b) should output [24, 39, 20]
-    m_v_m_t2 = matrix_vector_multiply(matrix_b, vector_b)
+    # matrix_vector_multiply(t_matrix_b, t_vector_b) should output [24, 39, 20]
+    m_v_m_t2 = matrix_vector_multiply(t_matrix_b, t_vector_b)
     m_v_m_e2 = [24, 39, 20]
     m_v_m_r2 = m_v_m_t2 == m_v_m_e2
     print(f'matrix_vector_multiply test #2: {"pass" if m_v_m_r2 else "fail"}')
     if not m_v_m_r2:
         print(f'Expected result: {m_v_m_e2} | Actual: {m_v_m_t2}')
 
-    # matrix_multiply(matrix_a, matrix_b) should output:
+    # matrix_multiply(t_matrix_a, t_matrix_b) should output:
     # [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
-    m_m_t1 = matrix_multiply(matrix_a, matrix_b)
+    m_m_t1 = matrix_multiply(t_matrix_a, t_matrix_b)
     m_m_e1 = [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
     m_m_r1 = m_m_t1 == m_m_e1
     print(f'matrix_multiply test #1: {"pass" if m_m_r1 else "fail"}')
     if not m_m_r1:
         print(f'Expected result: {m_m_e1} | Actual: {m_m_t1}')
 
-    # matrix_multiply(matrix_b, matrix_c) should output:
+    # matrix_multiply(t_matrix_b, t_matrix_c) should output:
     # [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
-    m_m_t2 = matrix_multiply(matrix_b, matrix_c)
+    m_m_t2 = matrix_multiply(t_matrix_b, t_matrix_c)
     m_m_e2 = [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
     m_m_r2 = m_m_t2 == m_m_e2
     print(f'matrix_multiply test #2: {"pass" if m_m_r2 else "fail"}')
