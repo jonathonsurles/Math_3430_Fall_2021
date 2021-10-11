@@ -21,8 +21,8 @@ def add_vectors(vector_a: list[complex],
     Returns:
         The sum of vector_a and vector_b, stored as a list of numbers
     """
-    result = [element_a + element_b
-              for element_a, element_b in zip(vector_a, vector_b)]
+    result: list[complex] = [element_a + element_b
+            for element_a, element_b in zip(vector_a, vector_b)]
     return result
 
 
@@ -41,7 +41,7 @@ def vector_scalar_multiply(vector: list[complex],
         The product of vector and scalar, represented as a list
     """
     # Create the product vector
-    product_vector = [element * scalar for element in vector]
+    product_vector: list[complex] = [element * scalar for element in vector]
 
     # Return our product vector
     return product_vector
@@ -67,8 +67,8 @@ def matrix_scalar_multiply(matrix: list[list[complex]],
     """
 
     # Create the product matrix
-    product_matrix = [vector_scalar_multiply(vector, scalar)
-                      for vector in matrix]
+    product_matrix: list[list[complex]] = \
+            [vector_scalar_multiply(vector, scalar) for vector in matrix]
 
     # Return our product matrix
     return product_matrix
@@ -98,8 +98,8 @@ def matrix_add(matrix_a: list[list[complex]],
     """
 
     # Create the sum matrix
-    matrix_sum = [add_vectors(column_a, column_b)
-                  for column_a, column_b in zip(matrix_a, matrix_b)]
+    matrix_sum: list[list[complex]] = [add_vectors(column_a, column_b)
+            for column_a, column_b in zip(matrix_a, matrix_b)]
 
     # Return our sum matrix
     return matrix_sum
@@ -126,12 +126,13 @@ def matrix_vector_multiply(matrix: list[list[complex]],
     """
 
     # Initialize a resultant vector full of 0s
-    product_vector = [0 for _ in matrix[0]]
+    product_vector: list[complex] = [0 for _ in matrix[0]]
 
     # Calculate the product of each column of matrix with the corresponding
     # element of vector, then add to the result vector
     for m_vector, v_element in zip(matrix, vector):
-        inter_vector = vector_scalar_multiply(m_vector, v_element)
+        inter_vector: list[complex] = \
+                vector_scalar_multiply(m_vector, v_element)
         product_vector = add_vectors(product_vector, inter_vector)
 
     # Return our product vector
@@ -161,8 +162,9 @@ def matrix_multiply(left_matrix: list[list[complex]],
     """
 
     # Create our resultant matrix
-    matrix_product = [matrix_vector_multiply(left_matrix, column)
-                      for column in right_matrix]
+    matrix_product: list[list[complex]] = \
+            [matrix_vector_multiply(left_matrix, column)
+            for column in right_matrix]
 
     # Return our resultant matrix
     return matrix_product
@@ -185,7 +187,7 @@ def abs_value(scalar: complex) -> float:
         The absolute value of the input scalar
     """
     # Calculate aboslute value, relying on (** .5) being positive root
-    result = ((scalar.real ** 2) + (scalar.imag ** 2)) ** .5
+    result: float = ((scalar.real ** 2) + (scalar.imag ** 2)) ** .5
 
     # Return our result
     return result
@@ -206,7 +208,7 @@ def p_norm_finite(vector: list[complex], p: float=2) -> float:
         The p norm of vector
     """
     # Running total
-    result = 0.
+    result: float = 0
 
     # Sum of each element to the pth power
     for element in vector:
@@ -231,7 +233,7 @@ def inf_norm(vector: list[complex]) -> float:
         The infinite norm of vector, i.e. the greatest absolute value of all
         elements of vector.
     """
-    result = None
+    result: float = None
 
     # Create a vector of absolute values
     abs_vector = [abs_value(element) for element in vector]
@@ -256,7 +258,7 @@ def p_norm(vector: list[complex], p: float=2, inf: bool=False) -> float:
     Returns:
         The p norm of vector, or infinity norm if inf is True
     """
-    result = None
+    result: float = None
 
     # Finite case
     if not inf:
@@ -287,8 +289,8 @@ def inner_product(left_vector: list[complex],
         The inner product <left_vector, right_vector>
     """
     # Calculate the conjugate transpose of left_vector
-    left_vector_ct = [complex(element.real, -1 * element.imag)
-                      for element in left_vector]
+    left_vector_ct: list[complex] = [complex(element.real, -1 * element.imag)
+            for element in left_vector]
 
     # Calculate the inner product
     result = 0
