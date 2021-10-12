@@ -9,6 +9,7 @@ c = lambda r, i : complex(r, i)
 SCALAR_A = 4
 SCALAR_B = 7
 SCALAR_C = c(0, 1)
+SCALAR_D = c(3, 4)
 vector_a = [1, 2, 4]
 vector_b = [3, 1, 2]
 vector_c = [5, 0, 3]
@@ -62,3 +63,24 @@ def test_matrix_multiply():
     assert LA.matrix_multiply(matrix_a, matrix_b) == result_1
     result_2 = [[57, 128, 52], [13, 49, 14], [61, 103, 39]]
     assert LA.matrix_multiply(matrix_b, matrix_c) == result_2
+
+def test_abs_value():
+    assert LA.abs_value(-3.4) == 3.4
+    assert LA.abs_value(0) == 0
+    assert LA.abs_value(4) == 4
+    assert LA.abs_value(c(3, 4)) == 5.0
+
+def test_p_norm_finite():
+    assert LA.p_norm_finite([3, 4]) == 5.0
+    assert LA.p_norm_finite([5, c(3, 4)], p=1) == 10.0
+
+def test_inf_norm():
+    assert LA.inf_norm([3, 4]) == 4.0
+    assert LA.inf_norm([3, c(3, 4)]) == 5.0
+
+def test_p_norm():
+    assert LA.p_norm([3, 4]) == 5.0
+    assert LA.p_norm([5, c(3, 4)], p=1) == 10.0
+    assert LA.p_norm([3, 4], inf=True) == 4.0
+    assert LA.p_norm([3, c(3, 4)], inf=True) == 5.0
+

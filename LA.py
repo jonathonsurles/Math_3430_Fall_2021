@@ -2,7 +2,7 @@
 """
 
 
-# Begin Homework 03 functions
+# Begin Homework 01-03 functions
 
 
 def add_vectors(vector_a: list[complex],
@@ -169,10 +169,9 @@ def matrix_multiply(left_matrix: list[list[complex]],
     return matrix_product
 
 
-# End Homework 03 functions, begin Homework 04 functions
+# End Homework 01-03 functions, begin Homework 04 functions
 
 
-# TODO: needs testing
 def abs_value(scalar: complex) -> float:
     """Find the absolute value of a complex number
 
@@ -192,7 +191,6 @@ def abs_value(scalar: complex) -> float:
     return result
 
 
-# TODO: needs testing
 def p_norm_finite(vector: list[complex], p: float=2) -> float:
     """Find the p-norm of a vector. Defaults to 2-norm (euclidian norm)
 
@@ -218,7 +216,6 @@ def p_norm_finite(vector: list[complex], p: float=2) -> float:
     return result
 
 
-# TODO: needs testing
 def inf_norm(vector: list[complex]) -> float:
     """Find the infinite norm of a vector.
 
@@ -242,7 +239,6 @@ def inf_norm(vector: list[complex]) -> float:
     return result
 
 
-# TODO: needs testing
 def p_norm(vector: list[complex], p: float=2, inf: bool=False) -> float:
     """Find the p-norm of a vector. Defaults to 2-norm. Can calulate inf norm
 
