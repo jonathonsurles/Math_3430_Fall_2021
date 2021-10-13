@@ -173,7 +173,7 @@ def matrix_multiply(left_matrix: list[list[complex]],
 
 
 def abs_value(scalar: complex) -> float:
-    """Find the absolute value of a complex number
+    """Finds the absolute value of a complex number
 
     Square the real and imaginary parts of scalar, then take the square root
     of their sum. Return that result
@@ -192,7 +192,7 @@ def abs_value(scalar: complex) -> float:
 
 
 def p_norm_finite(vector: list[complex], p: float=2) -> float:
-    """Find the p-norm of a vector. Defaults to 2-norm (euclidian norm)
+    """Finds the p-norm of a vector. Defaults to 2-norm (euclidian norm)
 
     For every element in vector, add element^p to a running total. Then take
     the pth root of that sum, and return it
@@ -217,7 +217,7 @@ def p_norm_finite(vector: list[complex], p: float=2) -> float:
 
 
 def inf_norm(vector: list[complex]) -> float:
-    """Find the infinite norm of a vector.
+    """Finds the infinite norm of a vector.
 
     Create a vector storing the absolute value for each element in vector.
     Find and return the greatest of those elements
@@ -240,7 +240,7 @@ def inf_norm(vector: list[complex]) -> float:
 
 
 def p_norm(vector: list[complex], p: float=2, inf: bool=False) -> float:
-    """Find the p-norm of a vector. Defaults to 2-norm. Can calulate inf norm
+    """Finds the p-norm of a vector. Defaults to 2-norm. Can calulate inf norm
 
     If inf is False, find the norm using the pre-existing p_norm_finite().
     If inf is True, find the norm using the pre-existing inf_norm()
@@ -266,14 +266,13 @@ def p_norm(vector: list[complex], p: float=2, inf: bool=False) -> float:
     return result
 
 
-# TODO: needs testing
 def inner_product(left_vector: list[complex],
                   right_vector: list[complex]) -> complex:
-    """Find the inner product of two vectors.
+    """Finds the inner product of two vectors.
 
     Calculate the conjugate transpose of left_vector, them multiply
     element-wise this conjugate with right_vector, adding each term into the
-    result. Return the result
+    result. Return the result as a float if it is real, or as complex if needed
 
     Args:
         left_vector: a list of complex numbers, representing a vector.
@@ -291,6 +290,9 @@ def inner_product(left_vector: list[complex],
     result = 0
     for left_element_c, right_element in zip(left_vector_ct, right_vector):
         result += left_element_c * right_element
+
+    # Collapse real results to floats
+    result = result.real if result.imag == 0 else result
 
     return result
 
