@@ -287,7 +287,7 @@ def inner_product(left_vector: list[complex],
             for element in left_vector]
 
     # Calculate the inner product
-    result = 0
+    result: complex = 0
     for left_element_c, right_element in zip(left_vector_ct, right_vector):
         result += left_element_c * right_element
 
