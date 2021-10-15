@@ -298,7 +298,3 @@ def inner_product(left_vector: list[complex],
 
 
 # End Homework 04 Problems
-
-
-if __name__ == '__main__':
-    pass

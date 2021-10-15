@@ -2,6 +2,7 @@
 """
 
 
+import pytest
 import LA
 
 
@@ -140,3 +141,8 @@ def test_inner_product():
     assert LA.inner_product(vector_c, vector_d) == complex(-21, -33)
     # Test for complex vectors: <complex, real>
     assert LA.inner_product(vector_d, vector_c) == complex(-21, 33)
+
+
+# Run tests if file is run directly
+if __name__ == '__main__':
+    pytest.main(['test_LA.py'])
