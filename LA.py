@@ -172,11 +172,25 @@ def matrix_multiply(left_matrix: list[list[complex]],
 # End Homework 01-03 functions, begin Homework 04 functions
 
 
+def cpx_conj(cpx: complex) -> comples:
+    """Conjugates a complex number
+
+    Negate the imaginary portion of the input number, then return it
+
+    Args:
+        cpx: the complex number to be conjugated
+
+    Returns:
+        The complex conjugate of cpx
+    """
+    conj: complex = complex(cpx.real, -1 * cpx.imag)
+    return conj
+
+
 def abs_value(scalar: complex) -> float:
     """Finds the absolute value of a complex number
 
-    Square the real and imaginary parts of scalar, then take the square root
-    of their sum. Return that result
+    Multiply scalar by its complex conjugate, then return the square root
 
     Args:
         scalar: a complex number
@@ -185,7 +199,7 @@ def abs_value(scalar: complex) -> float:
         The absolute value of the input scalar
     """
     # Calculate aboslute value, relying on (** .5) being positive root
-    result: float = ((scalar.real ** 2) + (scalar.imag ** 2)) ** .5
+    result: float = (scalar * cpx_conj(scalar)) ** .5
 
     # Return our result
     return result
