@@ -40,12 +40,12 @@ def gram_schmidt_unstable(matrix: list[list[complex]]) \
             # Store the operation we need to orthagonalize the vector to Q_i
             r_matrix[j][i] = LA.inner_product(matrix[i], matrix[j])
             # Orthagonalize vector relative to the current column
-            vector = LA.add_vectors(vector, 
+            vector = LA.add_vectors(vector,
                      LA.vector_scalar_multiply(matrix[i], -1 * r_matrix[j][i]))
         # Normalize the now orthagonalized column and store that operation
         r_matrix[j][j] = LA.p_norm(vector)
         q_matrix[j] = LA.vector_scalar_multiply(vector, 1 / r_matrix[j][j])
-    
+
     # Return Q and R
     return [q_matrix, r_matrix]
 
@@ -71,7 +71,7 @@ def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
             as a list of lists, each component list being a column vector
     """
     # Let q_matrix (Q) be a copy of matrix, and r_matrix (R) be a 0 matrix
-    q_matrix = [[x for x in column] for column in matrix]
+    q_matrix = [column[:] for column in matrix]
     r_matrix = [[0 for m in matrix] for n in matrix]
 
     # Orthonormalize Q and store the processes in R
