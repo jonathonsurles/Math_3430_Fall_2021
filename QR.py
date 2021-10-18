@@ -85,7 +85,7 @@ def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
             # Store the orthagonalization factor in R, then orthagonalize Q_j
             r_matrix[j][i] = LA.inner_product(q_matrix[i], q_matrix[j])
             q_matrix[j] = LA.add_vectors(q_matrix[j],
-                  vector_scalar_multiply(q_matrix[i], -1 * r_matrix[j][i]))
+                  LA.vector_scalar_multiply(q_matrix[i], -1 * r_matrix[j][i]))
 
     # Return Q and R as a list
     return [q_matrix, r_matrix]
