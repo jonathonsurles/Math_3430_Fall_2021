@@ -172,7 +172,7 @@ def matrix_multiply(left_matrix: list[list[complex]],
 # End Homework 01-03 functions, begin Homework 04 functions
 
 
-def cpx_conj(cpx: complex) -> comples:
+def cpx_conj(cpx: complex) -> float:
     """Conjugates a complex number
 
     Negate the imaginary portion of the input number, then return it
@@ -201,8 +201,8 @@ def abs_value(scalar: complex) -> float:
     # Calculate aboslute value, relying on (** .5) being positive root
     result: float = (scalar * cpx_conj(scalar)) ** .5
 
-    # Return our result
-    return result
+    # Since mathematically result.imag must be 0, return result.real for typing
+    return result.real
 
 
 def p_norm_finite(vector: list[complex], p: float=2) -> float:
