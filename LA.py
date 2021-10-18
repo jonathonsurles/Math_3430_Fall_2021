@@ -26,7 +26,7 @@ def add_vectors(vector_a: list[complex],
 
 
 def vector_scalar_multiply(vector: list[complex],
-                           scalar: int) -> list[complex]:
+                           scalar: complex) -> list[complex]:
     """Multiplies a vector times a scalar
 
     Builds the matrix-scalar product element-wise by multiplying each element
