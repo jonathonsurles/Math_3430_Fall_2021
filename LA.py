@@ -297,8 +297,8 @@ def inner_product(left_vector: list[complex],
         The inner product <left_vector, right_vector>
     """
     # Calculate the conjugate transpose of left_vector
-    left_vector_ct: list[complex] = [complex(element.real, -1 * element.imag)
-            for element in left_vector]
+    left_vector_ct: list[complex] = [cpx_conj(element)
+                                     for element in left_vector]
 
     # Calculate the inner product
     result: complex = 0
