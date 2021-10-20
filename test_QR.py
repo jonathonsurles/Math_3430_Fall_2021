@@ -45,6 +45,17 @@ def test_gram_schmidt():
                                                    [[1, 0], [-3, 3]]]
 
 
+def test_orthonormalize():
+    """Tests QR.orthonormalize()
+    """
+    # Simple test with the identity
+    # [[1, 0], [1, 1]] should produce [[1, 0], [0, 1]]
+    assert QR.orthonormalize([[1, 0], [1, 1]]) == [[1, 0], [0, 1]]
+    # Modified identity test
+    # [[1, 0], [-3, -3]] should produce [[1, 0], [0, -1]
+    assert QR.orthonormalize([[1, 0], [-3, -3]]) == [[1, 0], [0, -1]]
+
+
 # Run tests if file is run directly
 if __name__ == "__main__":
     pytest.main(['test_QR.py'])
