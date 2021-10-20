@@ -5,6 +5,48 @@
 import LA
 
 
+def normalize(vector: list[complex]) -> list:
+    """Normalizes a vector
+
+    Calculate the norm of the input vector. Then, multiply the vector by the
+    reciprocal of norm. Return the vector and the norm as a list
+
+    Args:
+        vector: the vector to be normalized
+    
+    Returns:
+        A list, where the first element is the normalized vector and the
+        second element is the norm of the original vector
+    """
+    norm: float = LA.p_norm(vector)
+    result: list[complex] = LA.vector_scalar_multiply(vector, 1 / norm)
+
+    return [result, norm]
+
+
+def orthagonalize(vector: list[complex], basis: list[complex]):
+    """Calculates the vector rejection of vector on basis
+    
+    Calculate the inner product between vector and basis and store it. Use that
+    inner product to calculate the negated vector projection of vector on
+    basis, then subtract that from vector. Return that vector rejection and the
+    inner product used to calculate it.
+
+    Args:
+        vector: the vector to be orthagonalized
+        basis: the vector to be orthagonalized against. Must be normalized.
+
+    Returns:
+        A list, where the first element is the orthagonalized vector, and the
+        second element is the inner product of the vectors used to calculate it
+    """
+    factor: complex = LA.inner_product(vector, basis)
+    neg_proj: list[complex] = LA.vector_scalar_multiply(basis, -1 * factor)
+    result: list[complex] = LA.add_vectors(vector, neg_proj)
+
+    return [result, factor]
+
+
 def gram_schmidt_unstable(matrix: list[list[complex]]) \
         -> list[list[list[complex]]]:
     """Performs the Gram-Schmidt method for reduced QR factorization
@@ -35,16 +77,16 @@ def gram_schmidt_unstable(matrix: list[list[complex]]) \
 
     # Create Q and R
     for j, _ in enumerate(matrix):
-        vector = matrix[j] # Create a copy of the jth column of matrix
+        vector = matrix[j][:] # Create a copy of the jth column of matrix
         for i in range(0, j): # For each already created column of Q...
-            # Store the operation we need to orthagonalize the vector to Q_i
-            r_matrix[j][i] = LA.inner_product(matrix[i], matrix[j])
-            # Orthagonalize vector relative to the current column
-            vector = LA.add_vectors(vector,
-                     LA.vector_scalar_multiply(matrix[i], -1 * r_matrix[j][i]))
+            # Orthagonalize vector to the working column and store the operation
+            orth_operation = orthagonalize(vector, matrix[i])
+            vector = orth_operation[0]
+            r_matrix[j][i] = orth_operation[1]
         # Normalize the now orthagonalized column and store that operation
-        r_matrix[j][j] = LA.p_norm(vector)
-        q_matrix[j] = LA.vector_scalar_multiply(vector, 1 / r_matrix[j][j])
+        norm_operation = normalize(vector)
+        q_matrix[j] = norm_operation[0]
+        r_matrix[j][j] = norm_operation[1]
 
     # Return Q and R
     return [q_matrix, r_matrix]
@@ -76,16 +118,16 @@ def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
 
     # Orthonormalize Q and store the processes in R
     for i, _ in enumerate(q_matrix):
-        # Store the norm of the working column vector and then normalize
-        r_matrix[i][i] = LA.p_norm(q_matrix[i])
-        q_matrix[i] = LA.vector_scalar_multiply(
-                      q_matrix[i], 1 / r_matrix[i][i])
+        # Perform a normalization operation on the working column and store
+        norm_operation = normalize(q_matrix[i])
+        q_matrix[i] = norm_operation[0]
+        r_matrix[i][i] = norm_operation[1]
         # Orthagonalize the following vectors in Q relative to working column
         for j in range(i+1, len(q_matrix)):
             # Store the orthagonalization factor in R, then orthagonalize Q_j
-            r_matrix[j][i] = LA.inner_product(q_matrix[i], q_matrix[j])
-            q_matrix[j] = LA.add_vectors(q_matrix[j],
-                  LA.vector_scalar_multiply(q_matrix[i], -1 * r_matrix[j][i]))
+            orth_operation = orthagonalize(q_matrix[j], q_matrix[i])
+            q_matrix[j] = orth_operation[0]
+            r_matrix[j][i] = orth_operation[1]
 
     # Return Q and R as a list
     return [q_matrix, r_matrix]
