@@ -13,7 +13,7 @@ def normalize(vector: list[complex]) -> list:
 
     Args:
         vector: the vector to be normalized
-    
+
     Returns:
         A list, where the first element is the normalized vector and the
         second element is the norm of the original vector
@@ -26,7 +26,7 @@ def normalize(vector: list[complex]) -> list:
 
 def orthagonalize(vector: list[complex], basis: list[complex]):
     """Calculates the vector rejection of vector on basis
-    
+
     Calculate the inner product between vector and basis and store it. Use that
     inner product to calculate the negated vector projection of vector on
     basis, then subtract that from vector. Return that vector rejection and the
