@@ -91,6 +91,14 @@ def test_matrix_multiply():
     assert LA.matrix_multiply(matrix_b, matrix_c) == result_2
 
 
+def test_cpx_conj():
+    """Tests the function LA.cpx_conj()
+    """
+    assert LA.cpx_conj(1+3j) == 1-3j
+    assert LA.cpx_conj(-3) == -3
+    assert LA.cpx_conj(-2.5j) == 2.5j
+
+
 def test_abs_value():
     """Tests the function LA.abs_value()
     """
