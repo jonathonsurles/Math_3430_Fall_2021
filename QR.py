@@ -117,15 +117,15 @@ def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
     r_matrix = [[0 for m in matrix] for n in matrix]
 
     # Orthonormalize Q and store the processes in R
-    for i, _ in enumerate(q_matrix):
+    for i, vector in enumerate(q_matrix):
         # Perform a normalization operation on the working column and store
-        norm_operation = normalize(q_matrix[i])
+        norm_operation = normalize(vector)
         q_matrix[i] = norm_operation[0]
         r_matrix[i][i] = norm_operation[1]
         # Orthagonalize the following vectors in Q relative to working column
-        for j in range(i+1, len(q_matrix)):
+        for j, orth_vector in enumerate(q_matrix[i+1:], start=i+1):
             # Perform an orthagonalization operation on Q_j and store factor
-            orth_operation = orthagonalize(q_matrix[j], q_matrix[i])
+            orth_operation = orthagonalize(orth_vector, vector)
             q_matrix[j] = orth_operation[0]
             r_matrix[j][i] = orth_operation[1]
 
@@ -135,7 +135,7 @@ def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
 
 def orthonormalize(matrix: list[list[complex]]) -> list[list[complex]]:
     """Returns an orthonormal matrix with the same span as the input matrix
-    
+
     Performs modified gram-schmidt method for QR factorization and returns Q
 
     Args:
