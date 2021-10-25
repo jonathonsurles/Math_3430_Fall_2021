@@ -1,5 +1,4 @@
-"""Contains functions to perform QR factorization of matrices
-"""
+"""Contains functions to perform QR factorization of matrices"""
 
 
 import LA

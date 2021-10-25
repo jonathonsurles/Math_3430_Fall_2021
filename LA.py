@@ -1,13 +1,9 @@
-"""Perform linear algebraic operations on matrices and vectors
-"""
+"""Perform linear algebraic operations on matrices and vectors"""
 
 
 # Type Aliases
 Vector = list[complex]
 Matrix = list[list[complex]]
-
-
-# Begin Homework 01-03 functions
 
 
 def add_vectors(vector_a: Vector, vector_b: Vector) -> Vector:
@@ -24,8 +20,10 @@ def add_vectors(vector_a: Vector, vector_b: Vector) -> Vector:
     Returns:
         The sum of vector_a and vector_b, stored as a list of numbers
     """
+    # Create the sum vector
     result: Vector = [element_a + element_b
             for element_a, element_b in zip(vector_a, vector_b)]
+
     return result
 
 
@@ -45,7 +43,6 @@ def vector_scalar_multiply(vector: Vector, scalar: complex) -> Vector:
     # Create the product vector
     product_vector: Vector = [element * scalar for element in vector]
 
-    # Return our product vector
     return product_vector
 
 
@@ -71,7 +68,6 @@ def matrix_scalar_multiply(matrix: Matrix, scalar: complex) -> Matrix:
     product_matrix: Matrix = \
             [vector_scalar_multiply(vector, scalar) for vector in matrix]
 
-    # Return our product matrix
     return product_matrix
 
 
@@ -101,7 +97,6 @@ def matrix_add(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
     matrix_sum: Matrix = [add_vectors(column_a, column_b)
             for column_a, column_b in zip(matrix_a, matrix_b)]
 
-    # Return our sum matrix
     return matrix_sum
 
 
@@ -129,12 +124,10 @@ def matrix_vector_multiply(matrix: Matrix, vector: Vector) -> Vector:
 
     # Calculate the product of each column of matrix with the corresponding
     # element of vector, then add to the result vector
-    for m_vector, v_element in zip(matrix, vector):
-        inter_vector: Vector = \
-                vector_scalar_multiply(m_vector, v_element)
+    for column, v_element in zip(matrix, vector):
+        inter_vector: Vector = vector_scalar_multiply(column, v_element)
         product_vector = add_vectors(product_vector, inter_vector)
 
-    # Return our product vector
     return product_vector
 
 
@@ -163,11 +156,7 @@ def matrix_multiply(left_matrix: Matrix, right_matrix: Matrix) -> Matrix:
     matrix_product: Matrix = [matrix_vector_multiply(left_matrix, column)
             for column in right_matrix]
 
-    # Return our resultant matrix
     return matrix_product
-
-
-# End Homework 01-03 functions, begin Homework 04 functions
 
 
 def abs_value(scalar: complex) -> float:
@@ -181,11 +170,11 @@ def abs_value(scalar: complex) -> float:
     Returns:
         The absolute value of the input scalar
     """
-    # Calculate aboslute value, relying on (** .5) being positive root
-    result: float = (scalar * scalar.conjugate()) ** .5
+    # Calculate aboslute value using complex conjugate. Mathematically, the
+    # imaginary component must be 0, so throw it away using .real
+    result: float = ((scalar * scalar.conjugate()) ** .5).real
 
-    # Since mathematically result.imag must be 0, return result.real for typing
-    return result.real
+    return result
 
 
 def p_norm_finite(vector: Vector, p: float=2) -> float:
@@ -204,7 +193,7 @@ def p_norm_finite(vector: Vector, p: float=2) -> float:
     # Running total
     result: float = 0
 
-    # Sum of each element to the pth power
+    # Sum each element to the pth power
     for element in vector:
         result += (abs_value(element) ** p)
 
@@ -229,13 +218,15 @@ def inf_norm(vector: Vector) -> float:
     result: float = None
 
     # Create a vector of absolute values
-    abs_vector = [abs_value(element) for element in vector]
+    abs_vector: Vector = [abs_value(element) for element in vector]
 
-    # Find and return the greates absolute value
+    # Find and return the greatest absolute value
     result = max(abs_vector)
     return result
 
 
+# The floating point type has a defined representation of infinity, which
+# could be used to condense the argument list and remove extraneous args.
 def p_norm(vector: Vector, p: float=2, inf: bool=False) -> float:
     """Finds the p-norm of a vector. Defaults to 2-norm. Can calulate inf norm
 
@@ -290,6 +281,3 @@ def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
     result = result.real if result.imag == 0 else result
 
     return result
-
-
-# End Homework 04 Problems
