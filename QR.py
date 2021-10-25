@@ -5,7 +5,12 @@
 import LA
 
 
-def normalize(vector: list[complex]) -> list:
+# Type aliases
+Vector = list[complex]
+Matrix = list[list[complex]]
+
+
+def normalize(vector: Vector) -> list[Vector, float]:
     """Normalizes a vector
 
     Calculate the norm of the input vector. Then, multiply the vector by the
@@ -24,7 +29,7 @@ def normalize(vector: list[complex]) -> list:
     return [result, norm]
 
 
-def orthagonalize(vector: list[complex], basis: list[complex]):
+def orthagonalize(vector: Vector, basis: Vector) -> list[Vector, float]:
     """Calculates the vector rejection of vector on basis
 
     Calculate the inner product between vector and basis and store it. Use that
@@ -47,8 +52,7 @@ def orthagonalize(vector: list[complex], basis: list[complex]):
     return [result, factor]
 
 
-def gram_schmidt_unstable(matrix: list[list[complex]]) \
-        -> list[list[list[complex]]]:
+def gram_schmidt_unstable(matrix: Matrix) -> list[Matrix, Matrix]:
     """Performs the Gram-Schmidt method for reduced QR factorization
 
     DEPRECATED DO NOT USE
@@ -92,7 +96,7 @@ def gram_schmidt_unstable(matrix: list[list[complex]]) \
     return [q_matrix, r_matrix]
 
 
-def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
+def gram_schmidt(matrix: Matrix) -> list[Matrix, Matrix]:
     """Performs the Modified Gram-Schmidt method for reduced QR factorization
 
     First, initialize q_matrix (Q) to be a copy of the input matrix. and
@@ -113,8 +117,8 @@ def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
             as a list of lists, each component list being a column vector
     """
     # Let q_matrix (Q) be a copy of matrix, and r_matrix (R) be a 0 matrix
-    q_matrix = [column[:] for column in matrix]
-    r_matrix = [[0 for m in matrix] for n in matrix]
+    q_matrix: Matrix = [column[:] for column in matrix]
+    r_matrix: Matrix = [[0 for m in matrix] for n in matrix]
 
     # Orthonormalize Q and store the processes in R
     for i, vector in enumerate(q_matrix):
@@ -133,7 +137,7 @@ def gram_schmidt(matrix: list[list[complex]]) -> list[list[list[complex]]]:
     return [q_matrix, r_matrix]
 
 
-def orthonormalize(matrix: list[list[complex]]) -> list[list[complex]]:
+def orthonormalize(matrix: Matrix) -> Matrix:
     """Returns an orthonormal matrix with the same span as the input matrix
 
     Performs modified gram-schmidt method for QR factorization and returns Q
