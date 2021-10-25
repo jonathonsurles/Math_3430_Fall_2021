@@ -94,7 +94,7 @@ def test_p_norm_finite():
     """Tests the function LA.p_norm_finite()"""
     # Test for real vector, euclidian norm
     assert LA.p_norm_finite([3, 4]) == 5.0
-    
+
     assert LA.p_norm_finite([5, 3+4j], p=1) == 10.0
 
 
