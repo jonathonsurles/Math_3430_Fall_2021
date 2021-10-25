@@ -225,8 +225,6 @@ def inf_norm(vector: Vector) -> float:
     return result
 
 
-# The floating point type has a defined representation of infinity, which
-# could be used to condense the argument list and remove extraneous args.
 def p_norm(vector: Vector, p: float=2, inf: bool=False) -> float:
     """Finds the p-norm of a vector. Defaults to 2-norm. Can calulate inf norm
 
