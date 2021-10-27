@@ -267,7 +267,7 @@ def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
     Returns:
         The inner product <left_vector, right_vector>
     """
-    # Calculate the conjugate transpose of left_vector
+    # Calculate the conjugate "transpose" of left_vector
     left_vector_ct: Vector = [element.conjugate() for element in left_vector]
 
     # Calculate the inner product
@@ -278,4 +278,28 @@ def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
     # Collapse real results to floats
     result = result.real if result.imag == 0 else result
 
+    return result
+
+
+# TODO: create test
+def outer_product(left_vector: Vector, right_vector: Vector) -> Matrix:
+    """Finds the outer product of two column vectors
+
+    Calculate the conjugate transpose of right_vector and transform each
+    vector into a matrix representation. Multiply these vector-matrices using
+    the matrix multiply function, then return that matrix.
+
+    Args:
+        left_vector: a list of complex numbers, representing a column vector.
+        right_vector: a list of complex numbers, representing a column vector.
+
+    Returns:
+        The outer product matrix = left_vector right_vector*
+    """
+    # Calculate the conjugate transpose of right_vector as a matrix
+    right_vector_ct: Matrix = [[elmt.conjugate()] for elmt in right_vector]
+    # Set the left vector to its matrix representation
+    left_vector_m: Matrix = [left_vector]
+    # Perform the outer product
+    result = matrix_multiply(left_vector_m, right_vector_ct)
     return result
