@@ -5,6 +5,19 @@ import pytest
 import QR
 
 
+def equals_with_error(arg_a, arg_b, allowable_error):
+    """Tests if an item is equal to another within an allowable error range"""
+    # Check if the args are iterable
+    if hasattr(arg_a, '__iter__'):
+        for a, b in zip(arg_a, arg_b):
+            if not equals_with_error(a, b, allowable_error):
+                return False
+    else:
+        if abs(arg_a - arg_b) > allowable_error:
+            return False
+    return True
+
+
 def test_normalize():
     """Tests QR.normalize()"""
     assert QR.normalize([4, 0, 0]) == [[1, 0, 0], 4]
@@ -48,6 +61,16 @@ def test_orthonormalize():
     # Modified identity test
     # [[1, 0], [-3, -3]] should produce [[1, 0], [0, -1]
     assert QR.orthonormalize([[1, 0], [-3, -3]]) == [[1, 0], [0, -1]]
+
+
+def test_householder_orth():
+    """Tests QR.householder_orth()"""
+    # Tests from atozmath.com
+    test_case_1 = [[1, 1, 1, 1], [-1, 4, 4, -1], [4, -2, 2, 0]]
+    expected_q1 = [[-.5, -.5, -.5, -.5], [.5, -.5, -.5, .5], [-.5, .5, -.5, .5], [-.5, -.5, .5, .5]]
+    expected_r1 = [[-2, 0, 0, 0], [-3, -5, 0, 0], [-2, 2, -4, 0]]
+    assert equals_with_error(QR.householder_orth(test_case_1), [expected_q1, expected_r1], .0001)
+    test_case_2 = [] 
 
 
 # Run tests if file is run directly

@@ -152,9 +152,8 @@ def orthonormalize(matrix: Matrix) -> Matrix:
     return gram_schmidt(matrix)[0]
 
 
-# TODO: add tests
-def householder_orthnorm(matrix: Matrix) -> list[Matrix, Matrix]:
-    """Performs the householder orthonormalization method for QR factorization
+def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
+    """Performs the householder orthagonalization method for QR factorization
 
     TODO: Long explanation
 
@@ -174,14 +173,14 @@ def householder_orthnorm(matrix: Matrix) -> list[Matrix, Matrix]:
     # 5. matrix conjugate transpose
 
     # If matrix is mxn, let matrix_q_ct (Q*) = the mxm identity
-    matrix_q_ct: Matrix = [[1 if i==j else 0 for i in matrix] for j in matrix]
+    matrix_q_ct: Matrix = [[1 if i==j else 0 for i, _ in enumerate(matrix[0])] for j, _ in enumerate(matrix[0])]
     # Let matrix_r (R) start as a copy of the input matrix
     matrix_r: Matrix = [column[:] for column in matrix]
 
-    for k, column in matrix_r:
+    for k, column in enumerate(matrix_r):
         # Find Q_k
         # Let Q_k = the mxm identity matrix
-        q_k: Matrix = [[1 if i==j else 0 for i in matrix] for j in matrix]
+        q_k: Matrix = [[1 if i==j else 0 for i, _ in enumerate(matrix[0])] for j, _ in enumerate(matrix[0])]
         # Set the top left to the appropriate sized identity
         for i in range(k):
             q_k[i][i] = 1
@@ -194,7 +193,7 @@ def householder_orthnorm(matrix: Matrix) -> list[Matrix, Matrix]:
         vec_v = LA.add_vectors(vec_v, vec_x)
 
         # Use v to calculate F
-        mat_i: Matrix = [[1 if i==j else 0 for i in matrix] for j in matrix]
+        mat_i: Matrix = [[1 if i==j else 0 for i, _ in enumerate(matrix[0])] for j, _ in enumerate(matrix[0])]
         mat_f: Matrix = LA.outer_product(vec_v, vec_v)
         f_scale: float = -2 / LA.inner_product(vec_v, vec_v)
         mat_f = LA.matrix_scalar_multiply(mat_f, f_scale)
@@ -204,13 +203,12 @@ def householder_orthnorm(matrix: Matrix) -> list[Matrix, Matrix]:
         # List slicing nonsense that I will certainly forget how it works
         for i, f_col in enumerate(mat_f, start=k):
             q_k[i] = q_k[i][:k] + f_col
-
+    
         # Use our finally complete Q_k to continue our computation of Q* and R
         matrix_r = LA.matrix_multiply(q_k, matrix_r)
         matrix_q_ct = LA.matrix_multiply(q_k, matrix_q_ct)
 
     # Calculate Q given Q*
-    # TODO
-    matrix_q: Matrix = [[]]
+    matrix_q: Matrix = [[matrix_q_ct[i][j].conjugate() for i, _ in enumerate(matrix_q_ct[0])] for j, _ in enumerate(matrix_q_ct)]
 
     return [matrix_q, matrix_r]
