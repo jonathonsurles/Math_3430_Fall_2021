@@ -152,11 +152,15 @@ def orthonormalize(matrix: Matrix) -> Matrix:
     return gram_schmidt(matrix)[0]
 
 
-# TODO long documentation
 def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
     """Performs the householder orthagonalization method for QR factorization
 
-    ...
+    Initialize matrix_q (Q) as an identity matrix with the same number of rows
+    as the input matrix, and matrix_r (R) as a copy of the input matrix. Then
+    find successive matrices Q_k such that Q_k * R sets the kth column of R
+    to be upper triangular. Update Q and R such that they are multiplied by
+    Q_k, then once R is upper triangular, take the conjugate transpose of Q,
+    then finally return the list [Q, R]
 
     Args:
         matrix: The matrix to be factored, represented as a list of lists of
@@ -166,7 +170,7 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
         A list of matrices, where the first element is the orthonormal matrix
         Q and the second element is the upper triangular matrix R
     """
-    # Dimensions of the input matrix
+    # Dimensions of the input matrix for calculations
     d_m: int = len(matrix[0])  # m = number of rows
     d_n: int = len(matrix)  # n = number of columns
 
