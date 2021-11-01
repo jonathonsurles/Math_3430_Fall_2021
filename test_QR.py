@@ -2,11 +2,31 @@
 
 
 import pytest
+from typing import Union
 import QR
 
 
-def equals_with_error(arg_a, arg_b, allowable_error):
-    """Tests if an item is equal to another within an allowable error range"""
+def equals_with_error(arg_a: Union[list, complex],  # Py 3.10: list | complex
+                      arg_b: Union[list, complex],  # Py 3.10: list | complex
+                      allowable_error, float) -> bool:
+    """Tests if an item is equal to another within an allowable error range
+
+    If the arguments are iterable, recursively check each argument. Otherwise,
+    take the absolute value of the difference of the arguments. If the
+    absolute value is greater than the allowable error, return false,
+    otherwise continue with execution and if all elements are good return
+    true.
+
+    Args:
+        arg_a, arg_b: Lists or complex numbers to be compared. Must be the
+                      same dimensions if lists.
+        allowable_error: A floating point number, the allowable margin
+                         by which the absolute value of the args can differ
+
+    Returns:
+        A boolean value, representing if the arguments are equal within the
+        given allowable error range
+    """
     # Check if the args are iterable
     if hasattr(arg_a, '__iter__'):
         for a, b in zip(arg_a, arg_b):
