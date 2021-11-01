@@ -165,25 +165,22 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
         A list of matrices, where the first element is the orthonormal matrix
         Q and the second element is the upper triangular matrix R
     """
-    # TODO: breakout functions?
-    # 1. build identity
-    # 2. build Q_k
-    # 3. build F
-    # 4. build v
-    # 5. matrix conjugate transpose
+    # Dimensions of the input matrix
+    d_m: int = len(matrix[0])  # m = number of rows
+    d_n: int = len(matrix)  # n = number of columns
 
-    # If matrix is mxn, let matrix_q_ct (Q*) = the mxm identity
-    matrix_q_ct: Matrix = [[1 if i==j else 0 for i, _ in enumerate(matrix[0])] for j, _ in enumerate(matrix[0])]
+    # If matrix is mxn, let matrix_q (currently Q*) = the mxm identity
+    matrix_q: Matrix
+    matrix_q = [[1 if i==j else 0 for i in range(d_m)] for j in range(d_m)]
     # Let matrix_r (R) start as a copy of the input matrix
     matrix_r: Matrix = [column[:] for column in matrix]
 
-    for k, column in enumerate(matrix_r):
+    for k, _ in enumerate(matrix_r):
         # Find Q_k
+        # TODO: break this section out into its own function
         # Let Q_k = the mxm identity matrix
-        q_k: Matrix = [[1 if i==j else 0 for i, _ in enumerate(matrix[0])] for j, _ in enumerate(matrix[0])]
-        # Set the top left to the appropriate sized identity
-        for i in range(k):
-            q_k[i][i] = 1
+        q_k: Matrix
+        q_k = [[1 if i==j else 0 for i in range(d_m)] for j in range(d_m)]
 
         # Calculate v
         vec_x: Vector = matrix_r[k][k:]
@@ -193,7 +190,8 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
         vec_v = LA.add_vectors(vec_v, vec_x)
 
         # Use v to calculate F
-        mat_i: Matrix = [[1 if i==j else 0 for i, _ in enumerate(matrix[0])] for j, _ in enumerate(matrix[0])]
+        mat_i: Matrix
+        mat_i = [[1 if i==j else 0 for i in range(d_m-k)] for j in range(d_m-k)]
         mat_f: Matrix = LA.outer_product(vec_v, vec_v)
         f_scale: float = -2 / LA.inner_product(vec_v, vec_v)
         mat_f = LA.matrix_scalar_multiply(mat_f, f_scale)
@@ -203,12 +201,15 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
         # List slicing nonsense that I will certainly forget how it works
         for i, f_col in enumerate(mat_f, start=k):
             q_k[i] = q_k[i][:k] + f_col
-    
+
         # Use our finally complete Q_k to continue our computation of Q* and R
         matrix_r = LA.matrix_multiply(q_k, matrix_r)
-        matrix_q_ct = LA.matrix_multiply(q_k, matrix_q_ct)
+        matrix_q = LA.matrix_multiply(q_k, matrix_q)
 
-    # Calculate Q given Q*
-    matrix_q: Matrix = [[matrix_q_ct[i][j].conjugate() for i, _ in enumerate(matrix_q_ct[0])] for j, _ in enumerate(matrix_q_ct)]
+    # Calculate Q given Q*: calculate Q**
+    # Transpose Q
+    matrix_q = [[matrix_q[i][j] for i in range(d_m)] for j in range(d_n)]
+    # Conjugate Q
+    matrix_q = [[emt.conjugate() for emt in col] for col in matrix_q]
 
     return [matrix_q, matrix_r]
