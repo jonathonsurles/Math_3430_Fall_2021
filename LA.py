@@ -281,7 +281,6 @@ def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
     return result
 
 
-# TODO: create test
 def outer_product(left_vector: Vector, right_vector: Vector) -> Matrix:
     """Finds the outer product of two column vectors
 

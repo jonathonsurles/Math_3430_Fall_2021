@@ -125,6 +125,19 @@ def test_inner_product():
     assert LA.inner_product(vector_d, vector_c) == -21+33j
 
 
+def test_outer_product():
+    """Tests the function LA.outer_product()"""
+    # Test for real vectors
+    assert LA.outer_product(vector_a, vector_b) == \
+            [[3, 6, 12], [1, 2, 4], [2, 4, 8]]
+    # Test for real, complex
+    assert LA.outer_product(vector_c, vector_d) == \
+            [[-45+30j, 0, -27+18j], [-25j, 0, -15j], [40+5j, 0, 24+3j]]
+    # Test for complex, real
+    assert LA.outer_product(vector_d, vector_a) == \
+            [[-9-6j, 5j, 8-1j], [-18-12j, 10j, 16-2j], [-36-24j, 20j, 32-4j]]
+
+
 # Run tests if file is run directly
 if __name__ == '__main__':
     pytest.main(['test_LA.py'])
