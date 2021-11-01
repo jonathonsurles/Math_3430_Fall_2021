@@ -23,7 +23,7 @@ def normalize(vector: Vector) -> list[Vector, float]:
         second element is the norm of the original vector
     """
     norm: float = LA.p_norm(vector)
-    result: list[complex] = LA.vector_scalar_multiply(vector, 1 / norm)
+    result: Vector = LA.vector_scalar_multiply(vector, 1 / norm)
 
     return [result, norm]
 
@@ -45,8 +45,8 @@ def orthagonalize(vector: Vector, basis: Vector) -> list[Vector, complex]:
         second element is the inner product of the vectors used to calculate it
     """
     factor: complex = LA.inner_product(vector, basis)
-    neg_proj: list[complex] = LA.vector_scalar_multiply(basis, -1 * factor)
-    result: list[complex] = LA.add_vectors(vector, neg_proj)
+    neg_proj: Vector = LA.vector_scalar_multiply(basis, -1 * factor)
+    result: Vector = LA.add_vectors(vector, neg_proj)
 
     return [result, factor]
 
