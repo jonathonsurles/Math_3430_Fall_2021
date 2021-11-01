@@ -1,14 +1,14 @@
 """Tests functions in QR.py"""
 
 
-import pytest
 from typing import Union
+import pytest
 import QR
 
 
 def equals_with_error(arg_a: Union[list, complex],  # Py 3.10: list | complex
                       arg_b: Union[list, complex],  # Py 3.10: list | complex
-                      allowable_error, float) -> bool:
+                      allowable_error: float) -> bool:
     """Tests if an item is equal to another within an allowable error range
 
     If the arguments are iterable, recursively check each argument. Otherwise,
@@ -29,8 +29,8 @@ def equals_with_error(arg_a: Union[list, complex],  # Py 3.10: list | complex
     """
     # Check if the args are iterable
     if hasattr(arg_a, '__iter__'):
-        for a, b in zip(arg_a, arg_b):
-            if not equals_with_error(a, b, allowable_error):
+        for var_a, var_b in zip(arg_a, arg_b):
+            if not equals_with_error(var_a, var_b, allowable_error):
                 return False
     else:
         if abs(arg_a - arg_b) > allowable_error:
@@ -85,12 +85,21 @@ def test_orthonormalize():
 
 def test_householder_orth():
     """Tests QR.householder_orth()"""
-    # Tests from atozmath.com
-    test_case_1 = [[1, 1, 1, 1], [-1, 4, 4, -1], [4, -2, 2, 0]]
-    expected_q1 = [[-.5, -.5, -.5, -.5], [.5, -.5, -.5, .5], [-.5, .5, -.5, .5], [-.5, -.5, .5, .5]]
+    # Test from atozmath.com: QR Decomposition (Householder Method) ex. 1
+    expected_q1 = [[-.5, -.5, -.5, -.5], [.5, -.5, -.5, .5],
+                   [-.5, .5, -.5, .5], [-.5, -.5, .5, .5]]
     expected_r1 = [[-2, 0, 0, 0], [-3, -5, 0, 0], [-2, 2, -4, 0]]
-    assert equals_with_error(QR.householder_orth(test_case_1), [expected_q1, expected_r1], .0001)
-    test_case_2 = [] 
+    expected_1 = [expected_q1, expected_r1]
+    test_case_1 = [[1, 1, 1, 1], [-1, 4, 4, -1], [4, -2, 2, 0]]
+    actual_1 = QR.householder_orth(test_case_1)
+    assert equals_with_error(actual_1, expected_1, .0001)
+    # Test from atozmath.com: QR Decomposition (Householder Method) ex. 2
+    expected_q2 = [[-2/3, -2/3, -1/3], [2/3, -1/3, -2/3], [-1/3, 2/3, -2/3]]
+    expected_r2 = [[-3, 0, 0], [0, -3, 0], [-12, 12, -6]]
+    expected_2 = [expected_q2, expected_r2]
+    test_case_2 = [[2, 2, 1], [-2, 1, 2], [18, 0, 0]]
+    actual_2 = QR.householder_orth(test_case_2)
+    assert equals_with_error(actual_2, expected_2, .0001)
 
 
 # Run tests if file is run directly
