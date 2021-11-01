@@ -85,6 +85,7 @@ def test_orthonormalize():
 
 def test_householder_orth():
     """Tests QR.householder_orth()"""
+    # Yoinked from tests from the internet because I like nice numbers
     # Test from atozmath.com: QR Decomposition (Householder Method) ex. 1
     expected_q1 = [[-.5, -.5, -.5, -.5], [.5, -.5, -.5, .5],
                    [-.5, .5, -.5, .5], [-.5, -.5, .5, .5]]
