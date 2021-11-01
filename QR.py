@@ -152,10 +152,11 @@ def orthonormalize(matrix: Matrix) -> Matrix:
     return gram_schmidt(matrix)[0]
 
 
+# TODO long documentation
 def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
     """Performs the householder orthagonalization method for QR factorization
 
-    TODO: Long explanation
+    ...
 
     Args:
         matrix: The matrix to be factored, represented as a list of lists of
@@ -177,7 +178,7 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
 
     for k, _ in enumerate(matrix_r):
         # Find Q_k
-        # TODO: break this section out into its own function
+        # REFACTOR: break this section out into its own function
         # Let Q_k = the mxm identity matrix
         q_k: Matrix
         q_k = [[1 if i==j else 0 for i in range(d_m)] for j in range(d_m)]
@@ -189,18 +190,16 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
         vec_v = LA.vector_scalar_multiply(vec_v, v_scale)
         vec_v = LA.add_vectors(vec_v, vec_x)
 
-        # Use v to calculate F
-        mat_i: Matrix
-        mat_i = [[1 if i==j else 0 for i in range(d_m-k)] for j in range(d_m-k)]
+        # Use v to calculate F, mostly
         mat_f: Matrix = LA.outer_product(vec_v, vec_v)
         f_scale: float = -2 / LA.inner_product(vec_v, vec_v)
         mat_f = LA.matrix_scalar_multiply(mat_f, f_scale)
-        mat_f = LA.matrix_add(mat_f, mat_i)
 
         # Set the latter portion of q_k equal to F
-        # List slicing nonsense that I will certainly forget how it works
+        # List slicing magic: Essentially appends 0s to F's cols and adds F
+        # to I at the same time, storing in Q_k
         for i, f_col in enumerate(mat_f, start=k):
-            q_k[i] = q_k[i][:k] + f_col
+            q_k[i] = LA.add_vectors(q_k[i][:k] + f_col, q_k[i])
 
         # Use our finally complete Q_k to continue our computation of Q* and R
         matrix_r = LA.matrix_multiply(q_k, matrix_r)
