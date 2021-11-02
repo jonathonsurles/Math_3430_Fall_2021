@@ -152,6 +152,47 @@ def orthonormalize(matrix: Matrix) -> Matrix:
     return gram_schmidt(matrix)[0]
 
 
+def _householder_q_k(matrix_r: Matrix, k: int) -> Matrix:
+    """Calculates q_k from the kth column of a matrix R for Householder QR
+
+    Performs the mathematical algorthm to calculate q_k for Householder QR
+    factorization.
+
+    Args:
+        matrix_r: (R), the original matrix from which q_k should be generated
+        k: which column should be used as the base to generate
+
+    Returns:
+        A matrix q_k such that q_k * matrix_r sets the kth column of matrix_r
+        to be upper triangular (below the kth element are only zeroes)
+    """
+    # Let d_m (m) be the number of rows of matrix_r
+    d_m = len(matrix_r[0])
+
+    # Let q_k = the mxm identity matrix to start
+    q_k: Matrix
+    q_k = [[1 if i==j else 0 for i in range(d_m)] for j in range(d_m)]
+
+    # Calculate v
+    vec_x: Vector = matrix_r[k][k:]
+    vec_v: Vector = q_k[k][k:]
+    v_scl: float = LA.p_norm(vec_x) * (1 if vec_x[0] >= 0 else -1)
+    vec_v = LA.vector_scalar_multiply(vec_v, v_scl)
+    vec_v = LA.add_vectors(vec_v, vec_x)
+
+    # Use v to calculate F-I
+    mat_f: Matrix = LA.outer_product(vec_v, vec_v)
+    f_scl: float = -2 / LA.inner_product(vec_v, vec_v)
+    mat_f = LA.matrix_scalar_multiply(mat_f, f_scl)
+
+    # q_k is currently I, so adding F-I to the bottom right corner sets the
+    # bottom corner to (F-I)+I = F
+    for i, f_col in enumerate(mat_f, start=k):
+        q_k[i] = LA.add_vectors(q_k[i][:k] + f_col, q_k[i])
+
+    return q_k
+
+
 def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
     """Performs the householder orthagonalization method for QR factorization
 
@@ -182,32 +223,10 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
 
     for k, _ in enumerate(matrix_r):
         # Find Q_k
-        # REFACTOR: break this section out into its own function
-        # Let Q_k = the mxm identity matrix
-        q_k: Matrix
-        q_k = [[1 if i==j else 0 for i in range(d_m)] for j in range(d_m)]
-
-        # Calculate v
-        vec_x: Vector = matrix_r[k][k:]
-        vec_v: Vector = q_k[k][k:]
-        v_scale: float = LA.p_norm(vec_x) * (1 if vec_x[0] >= 0 else -1)
-        vec_v = LA.vector_scalar_multiply(vec_v, v_scale)
-        vec_v = LA.add_vectors(vec_v, vec_x)
-
-        # Use v to calculate F, mostly
-        mat_f: Matrix = LA.outer_product(vec_v, vec_v)
-        f_scale: float = -2 / LA.inner_product(vec_v, vec_v)
-        mat_f = LA.matrix_scalar_multiply(mat_f, f_scale)
-
-        # Set the latter portion of q_k equal to F
-        # List slicing magic: Essentially appends 0s to F's cols and adds F
-        # to I at the same time, storing in Q_k
-        for i, f_col in enumerate(mat_f, start=k):
-            q_k[i] = LA.add_vectors(q_k[i][:k] + f_col, q_k[i])
-
-        # Use our finally complete Q_k to continue our computation of Q* and R
-        matrix_r = LA.matrix_multiply(q_k, matrix_r)
-        matrix_q = LA.matrix_multiply(q_k, matrix_q)
+        mat_q_k = _householder_q_k(matrix_r, k)
+        # Use Q_k to continue our computation of Q* and R
+        matrix_r = LA.matrix_multiply(mat_q_k, matrix_r)
+        matrix_q = LA.matrix_multiply(mat_q_k, matrix_q)
 
     # Calculate Q given Q*: calculate Q**
     # Transpose Q
