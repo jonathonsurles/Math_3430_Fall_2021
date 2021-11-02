@@ -1,13 +1,12 @@
 """Tests functions in QR.py"""
 
 
-from typing import Union
 import pytest
 import QR
 
 
-def equals_with_error(arg_a: Union[list, complex],  # Py 3.10: list | complex
-                      arg_b: Union[list, complex],  # Py 3.10: list | complex
+def equals_with_error(arg_a: list | complex,
+                      arg_b: list | complex,
                       allowable_error: float) -> bool:
     """Tests if an item is equal to another within an allowable error range
 
