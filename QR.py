@@ -174,7 +174,7 @@ def _householder_q_k(matrix_r: Matrix, k: int) -> Matrix:
     # Calculate v
     vec_x: Vector = matrix_r[k][k:]
     vec_v: Vector = q_k[k][k:]
-    v_scl: float = LA.p_norm(vec_x) * (1 if vec_x[0] >= 0 else -1)
+    v_scl: float = LA.p_norm(vec_x) * (1 if vec_x[0].real >= 0 else -1)
     vec_v = LA.vector_scalar_multiply(vec_v, v_scl)
     vec_v = LA.add_vectors(vec_v, vec_x)
 

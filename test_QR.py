@@ -36,7 +36,7 @@ def equals_with_error(arg_a: list | complex,
                 return False
     # Non-iterable case: 
     else:
-        if abs(arg_a - arg_b) > allowable_error:
+        if abs(arg_a - arg_b) > margin:
             return False
     return True
 
