@@ -15,7 +15,7 @@ def add_vectors(vector_a: Vector, vector_b: Vector) -> Vector:
     Args:
         vector_a: A list of complex numbers representing a vector
         vector_b: A list of complex numbers representing a vector, must be the
-                  same length as vector_a
+          same length as vector_a
 
     Returns:
         The sum of vector_a and vector_b, stored as a list of numbers
@@ -54,8 +54,8 @@ def matrix_scalar_multiply(matrix: Matrix, scalar: complex) -> Matrix:
 
     Args:
         matrix: a list of list of complex numbers, representing a matrix. Each
-                component list represents a vector of the matrix, regardless
-                of whether these vectors are rows or columns.
+          component list represents a vector of the matrix, regardless of
+          whether these vectors are rows or columns.
         scalar: a complex number
 
     Returns:
@@ -79,13 +79,11 @@ def matrix_add(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
 
     Args:
         matrix_a: a list of list of complex numbers, representing a matrix.
-                  Each component list representing either a row or column.
+          Each component list representing either a row or column.
         matrix_b: a list of list of complex numbers, representing a matrix.
-                  Each component list representing either a row or column.
-                  The matrix must be of the same length as matrix_a, each
-                  component list must be the same length as a component list
-                  of matrix_a, and it must represent the same type of vector
-                  as in matrix_a (row or column)
+          Each component list representing either a row or column. The matrix
+          must have the same dimensions as matrix_a, and each component list
+          must represent the same type of vector as in matrix_a (row or column)
 
     Returns:
         The sum of matrix_a and matrix_b, represented as a list of list of
@@ -110,9 +108,9 @@ def matrix_vector_multiply(matrix: Matrix, vector: Vector) -> Vector:
 
     Args:
         matrix: a list of list of complex numbers representing a matrix. Each
-                component list must represent a column vector.
+          component list must represent a column vector.
         vector: a list of complex numbers representing a column vector. Must
-                have the same number of elements as matrix
+          have the same number of elements as matrix
 
     Returns:
         The matrix-vector product of matrix and vector, stored as a list of
@@ -140,11 +138,10 @@ def matrix_multiply(left_matrix: Matrix, right_matrix: Matrix) -> Matrix:
 
     Args:
         left_matrix: A list of lists of complex numbers, representing a matrix.
-                     Each component list must represent a column vector.
+          Each component list must represent a column vector.
         right_matrix: A list of lists of complex numbers, representing a
-                      matrix. Each component list must represent a column
-                      vector, and the length of each column vector must be
-                      equal to the number of vectors in left_matrix
+          matrix. Each component list must represent a column vector, and the
+          length of each must be equal to the length of left_matrix
 
     Returns:
         The product of left_matrix * right_matrix, stored as a list of lists
@@ -262,7 +259,7 @@ def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
     Args:
         left_vector: a list of complex numbers, representing a vector.
         right_vector: a list of complex numbers, representing a vector. Must
-                      be the same size as left_vector.
+          be the same size as left_vector.
 
     Returns:
         The inner product <left_vector, right_vector>

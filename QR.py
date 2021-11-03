@@ -65,13 +65,12 @@ def gram_schmidt_unstable(matrix: Matrix) -> list[Matrix, Matrix]:
 
     Args:
         matrix: The matrix to be factored, represented as a list of list
-                of column vectors
+          of column vectors
 
     Returns:
-        A matrix representing Q in reduced QR factorization, represented
-            as a list of lists, each component list being a column vector
-        A matrix representing R in reduced QR factorization, represented
-            as a list of lists, each component list being a column vector
+        A list of matrices, each represented as a list of lists, each component
+        list representing a column vector. The first matrix is the orthonormal
+        matrix Q and the second matrix is the upper triangular matrix R
     """
     # Create a 0 matrix of the same size as matrix to represent Q
     q_matrix = [[0 for _ in column] for column in matrix]
@@ -107,13 +106,12 @@ def gram_schmidt(matrix: Matrix) -> list[Matrix, Matrix]:
 
     Args:
         matrix: The matrix to be factored, represented as a list of list
-                of column vectors
+          of column vectors
 
     Returns:
-        A matrix representing Q in reduced QR factorization, represented
-            as a list of lists, each component list being a column vector
-        A matrix representing R in reduced QR factorization, represented
-            as a list of lists, each component list being a column vector
+        A list of matrices, each represented as a list of lists, each component
+        list representing a column vector. The first matrix is the orthonormal
+        matrix Q and the second matrix is the upper triangular matrix R
     """
     # Let q_matrix (Q) be a copy of matrix, and r_matrix (R) be a 0 matrix
     q_matrix: Matrix = [column[:] for column in matrix]
@@ -143,7 +141,7 @@ def orthonormalize(matrix: Matrix) -> Matrix:
 
     Args:
         matrix: The matrix to be orthonormalized, represented as a list of
-                lists, where each component list represents a column vector
+          lists, where each component list represents a column vector
 
     Returns:
         An orthonormal matrix with the same span as the input matrix
@@ -160,7 +158,7 @@ def _householder_q_k(matrix_r: Matrix, k: int) -> Matrix:
 
     Args:
         matrix_r: (R), the original matrix from which q_k should be generated
-        k: which column should be used as the base to generate
+        k: which column should be used as the base to generate q_k
 
     Returns:
         A matrix q_k such that q_k * matrix_r sets the kth column of matrix_r
@@ -205,10 +203,10 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
 
     Args:
         matrix: The matrix to be factored, represented as a list of lists of
-                complex numbers.
+          complex numbers
 
     Returns:
-        A list of matrices, where the first element is the orthonormal matrix
+        A list of matrices, where the first element is the orthogonal matrix
         Q and the second element is the upper triangular matrix R
     """
     # Dimensions of the input matrix for calculations

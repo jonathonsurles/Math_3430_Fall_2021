@@ -7,30 +7,34 @@ import QR
 
 def equals_with_error(arg_a: list | complex,
                       arg_b: list | complex,
-                      allowable_error: float) -> bool:
+                      margin: float) -> bool:
     """Tests if an item is equal to another within an allowable error range
 
-    If the arguments are iterable, recursively check each argument. Otherwise,
-    take the absolute value of the difference of the arguments. If the
-    absolute value is greater than the allowable error, return false,
-    otherwise continue with execution and if all elements are good return
-    true.
+    Employs recursion. If the arguments are iterable, compare each matching
+    pair of elements in the arguments. Otherwise we have the base case, where
+    we compare the absolute value of the difference between the each element
+    (which we now know to be numbers) with the margin of error. If false, we
+    break recursion and return false, but if we get through all elements, we 
+    return true.
 
     Args:
-        arg_a, arg_b: Lists or complex numbers to be compared. Must be the
-                      same dimensions if lists.
-        allowable_error: A floating point number, the allowable margin
-                         by which the absolute value of the args can differ
+        arg_a: A list or a complex number to be compared.
+        arg_b: A list or a complex number to be compared. Must be the same
+          type as arg_a and if a list, must be the same length as arg_a
+                
+        margin: A floating point number, the allowable error by which the
+                absolute value of the args can differ
 
     Returns:
         A boolean value, representing if the arguments are equal within the
         given allowable error range
     """
-    # Check if the args are iterable
+    # Iterable case: compare corresponding elements
     if hasattr(arg_a, '__iter__'):
         for var_a, var_b in zip(arg_a, arg_b):
-            if not equals_with_error(var_a, var_b, allowable_error):
+            if not equals_with_error(var_a, var_b, margin):
                 return False
+    # Non-iterable case: 
     else:
         if abs(arg_a - arg_b) > allowable_error:
             return False
