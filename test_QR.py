@@ -5,6 +5,10 @@ import pytest
 import QR
 
 
+# Allowable margin for error for any tests that use it
+MARGIN = .0001
+
+
 def equals_with_error(arg_a: list | complex,
                       arg_b: list | complex,
                       margin: float) -> bool:
@@ -96,14 +100,14 @@ def test_householder_orth():
     expected_1 = [expected_q1, expected_r1]
     test_case_1 = [[1, 1, 1, 1], [-1, 4, 4, -1], [4, -2, 2, 0]]
     actual_1 = QR.householder_orth(test_case_1)
-    assert equals_with_error(actual_1, expected_1, .0001)
+    assert equals_with_error(actual_1, expected_1, MARGIN)
     # Test from atozmath.com: QR Decomposition (Householder Method) ex. 2
     expected_q2 = [[-2/3, -2/3, -1/3], [2/3, -1/3, -2/3], [-1/3, 2/3, -2/3]]
     expected_r2 = [[-3, 0, 0], [0, -3, 0], [-12, 12, -6]]
     expected_2 = [expected_q2, expected_r2]
     test_case_2 = [[2, 2, 1], [-2, 1, 2], [18, 0, 0]]
     actual_2 = QR.householder_orth(test_case_2)
-    assert equals_with_error(actual_2, expected_2, .0001)
+    assert equals_with_error(actual_2, expected_2, MARGIN)
 
 
 # Run tests if file is run directly
