@@ -57,17 +57,6 @@ def test_orthagonalize():
     assert QR.orthagonalize([-2.5, -2.5], [1, 0]) == [[0, -2.5], -2.5]
 
 
-def test_gram_schmidt_unstable():
-    """Tests QR.gram_schmidt_unstable()"""
-    # Simple test with the identity
-    # [[1, 0], [1, 1]] should produce Q=[[1, 0], [0, 1]] R=[[1, 0], [1, 1]
-    assert QR.gram_schmidt_unstable([[1, 0], [1, 1]]) == [[[1, 0], [0, 1]],
-                                                          [[1, 0], [1, 1]]]
-    # Modified identity test
-    # [[1, 0], [-3, -3]] should produce Q=[[1, 0], [0, -1] R=[[1, 0], [-3, 3]]
-    assert QR.gram_schmidt_unstable([[1, 0], [-3, -3]]) == [[[1, 0], [0, -1]],
-                                                            [[1, 0], [-3, 3]]]
-
 def test_gram_schmidt():
     """Tests QR.gram_schmidt()"""
     # Simple test with the identity

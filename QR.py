@@ -51,49 +51,6 @@ def orthagonalize(vector: Vector, basis: Vector) -> list[Vector, complex]:
     return [result, factor]
 
 
-def gram_schmidt_unstable(matrix: Matrix) -> list[Matrix, Matrix]:
-    """Performs the Gram-Schmidt method for reduced QR factorization
-
-    DEPRECATED DO NOT USE
-    First, create q_matrix (Q) and r_matrix (R) to be 0 matrices of the
-    appropriate size. Then to calculate Q and R, iterate over every column
-    vector of the input matrix. First, we will store a copy of it. Then we will
-    set this vector orthagonal to all initialized columns of q_matrix, storing
-    each factor in r_matrix. Normalize this column vector, then repeat for all
-    columns in the input matrix. Finally, once iteration is complete, return a
-    list containing q_matrix and r_matrix.
-
-    Args:
-        matrix: The matrix to be factored, represented as a list of list
-          of column vectors
-
-    Returns:
-        A list of matrices, each represented as a list of lists, each component
-        list representing a column vector. The first matrix is the orthonormal
-        matrix Q and the second matrix is the upper triangular matrix R
-    """
-    # Create a 0 matrix of the same size as matrix to represent Q
-    q_matrix = [[0 for _ in column] for column in matrix]
-    # Create a 0 matrix that is square to the columns of matrix to represent R
-    r_matrix = [[0 for m in matrix] for n in matrix]
-
-    # Create Q and R
-    for j, _ in enumerate(matrix):
-        vector = matrix[j][:] # Create a copy of the jth column of matrix
-        for i in range(0, j): # For each already created column of Q...
-            # Orthagonalize vector to the working column and store the operation
-            orth_operation = orthagonalize(vector, matrix[i])
-            vector = orth_operation[0]
-            r_matrix[j][i] = orth_operation[1]
-        # Normalize the now orthagonalized column and store that operation
-        norm_operation = normalize(vector)
-        q_matrix[j] = norm_operation[0]
-        r_matrix[j][j] = norm_operation[1]
-
-    # Return Q and R
-    return [q_matrix, r_matrix]
-
-
 def gram_schmidt(matrix: Matrix) -> list[Matrix, Matrix]:
     """Performs the Modified Gram-Schmidt method for reduced QR factorization
 
