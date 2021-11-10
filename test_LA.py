@@ -127,8 +127,12 @@ def test_inner_product():
 
 def test_conj_tpse():
     """Tests the function LA.conj_tpse()"""
-    # TODO: needs to be implemented
-    assert False
+    test_1 = [[1, 3+3j], [-5, -5-2j]]
+    expect_1 = [[1, -5], [3-3j, -5+2j]]
+    assert LA.conj_tpse(test_1) == expect_1
+    test_2 = [[-5, 6-4j, 40j], [13j, 30, 1-10j]]
+    expect_2 = [[-5, -13j], [6+4j, 30], [-40j, 1+10j]]
+    assert LA.conj_tpse(test_2) == expect_2
 
 
 def test_outer_product():
