@@ -125,6 +125,12 @@ def test_inner_product():
     assert LA.inner_product(vector_d, vector_c) == -21+33j
 
 
+def test_conj_tpse():
+    """Tests the function LA.conj_tpse()"""
+    # TODO: needs to be implemented
+    assert False
+
+
 def test_outer_product():
     """Tests the function LA.outer_product()"""
     # Test for real vectors

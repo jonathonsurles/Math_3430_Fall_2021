@@ -278,6 +278,29 @@ def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
     return result
 
 
+def conj_tpse(matrix: Matrix) -> Matrix:
+    """Finds the conjugate transpose of a matrix
+
+    Creates a matrix that is the transpose the input matrix then conjugates
+    each element of the new matrix then returns the new matrix.
+
+    Args:
+        matrix: A matrix, represented as a list of lists of complex numbers.
+
+    Returns:
+        The conjugate transpose of the matrix, represented in the same way.
+    """
+    # Get the dimensions
+    d_m: int = len(matrix[0])  # m = number of rows
+    d_n: int = len(matrix)  # n = number of columns
+    # Transpose it and copy at the same time
+    result: Matrix = [[matrix[i][j] for i in range(d_n)] for j in range(d_m)]
+    # Conjugate it
+    result = [[emt.conjugate() for emt in col] for col in result]
+    
+    return result
+
+
 def outer_product(left_vector: Vector, right_vector: Vector) -> Matrix:
     """Finds the outer product of two column vectors
 
@@ -293,7 +316,7 @@ def outer_product(left_vector: Vector, right_vector: Vector) -> Matrix:
         The outer product matrix = left_vector right_vector*
     """
     # Calculate the conjugate transpose of right_vector as a matrix
-    right_vector_ct: Matrix = [[elmt.conjugate()] for elmt in right_vector]
+    right_vector_ct: Matrix = conj_tpse([right_vector])
     # Set the left vector to its matrix representation
     left_vector_m: Matrix = [left_vector]
     # Perform the outer product

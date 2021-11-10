@@ -184,9 +184,6 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
         matrix_q = LA.matrix_multiply(mat_q_k, matrix_q)
 
     # Calculate Q given Q*: calculate Q**
-    # Transpose Q
-    matrix_q = [[matrix_q[i][j] for i in range(d_m)] for j in range(d_n)]
-    # Conjugate Q
-    matrix_q = [[emt.conjugate() for emt in col] for col in matrix_q]
+    matrix_q = LA.conj_tpse(matrix_q)
 
     return [matrix_q, matrix_r]
