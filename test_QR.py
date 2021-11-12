@@ -79,8 +79,8 @@ def test_orthonormalize():
     assert QR.orthonormalize([[1, 0], [-3, -3]]) == [[1, 0], [0, -1]]
 
 
-def test_householder_orth():
-    """Tests QR.householder_orth()"""
+def test_householder():
+    """Tests QR.householder()"""
     # Yoinked from tests from the internet because I like nice numbers
     # Test from atozmath.com: QR Decomposition (Householder Method) ex. 1
     expected_q1 = [[-.5, -.5, -.5, -.5], [.5, -.5, -.5, .5],
@@ -88,14 +88,14 @@ def test_householder_orth():
     expected_r1 = [[-2, 0, 0, 0], [-3, -5, 0, 0], [-2, 2, -4, 0]]
     expected_1 = [expected_q1, expected_r1]
     test_case_1 = [[1, 1, 1, 1], [-1, 4, 4, -1], [4, -2, 2, 0]]
-    actual_1 = QR.householder_orth(test_case_1)
+    actual_1 = QR.householder(test_case_1)
     assert equals_with_error(actual_1, expected_1, MARGIN)
     # Test from atozmath.com: QR Decomposition (Householder Method) ex. 2
     expected_q2 = [[-2/3, -2/3, -1/3], [2/3, -1/3, -2/3], [-1/3, 2/3, -2/3]]
     expected_r2 = [[-3, 0, 0], [0, -3, 0], [-12, 12, -6]]
     expected_2 = [expected_q2, expected_r2]
     test_case_2 = [[2, 2, 1], [-2, 1, 2], [18, 0, 0]]
-    actual_2 = QR.householder_orth(test_case_2)
+    actual_2 = QR.householder(test_case_2)
     assert equals_with_error(actual_2, expected_2, MARGIN)
 
 

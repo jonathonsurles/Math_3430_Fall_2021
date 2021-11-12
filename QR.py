@@ -148,8 +148,8 @@ def _householder_q_k(matrix_r: Matrix, k: int) -> Matrix:
     return q_k
 
 
-def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
-    """Performs the householder orthagonalization method for QR factorization
+def householder(matrix: Matrix) -> list[Matrix, Matrix]:
+    """Performs the householder method for QR factorization
 
     Initialize matrix_q (Q) as an identity matrix with the same number of rows
     as the input matrix, and matrix_r (R) as a copy of the input matrix. Then
@@ -183,7 +183,7 @@ def householder_orth(matrix: Matrix) -> list[Matrix, Matrix]:
         matrix_r = LA.matrix_multiply(mat_q_k, matrix_r)
         matrix_q = LA.matrix_multiply(mat_q_k, matrix_q)
 
-    # Calculate Q given Q*: calculate Q**
+    # Calculate Q given Q*: calculate Q**=Q
     matrix_q = LA.conj_tpse(matrix_q)
 
     return [matrix_q, matrix_r]
