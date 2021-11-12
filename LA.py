@@ -281,8 +281,8 @@ def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
 def conj_tpse(matrix: Matrix) -> Matrix:
     """Finds the conjugate transpose of a matrix
 
-    Creates a matrix that is the transpose the input matrix then conjugates
-    each element of the new matrix then returns the new matrix.
+    Creates a matrix that is the conjugate transpose of the input matrix then
+    returns it.
 
     Args:
         matrix: A matrix, represented as a list of lists of complex numbers.
@@ -293,10 +293,9 @@ def conj_tpse(matrix: Matrix) -> Matrix:
     # Get the dimensions
     d_m: int = len(matrix[0])  # m = number of rows
     d_n: int = len(matrix)  # n = number of columns
-    # Transpose it and copy at the same time
-    result: Matrix = [[matrix[i][j] for i in range(d_n)] for j in range(d_m)]
-    # Conjugate it
-    result = [[emt.conjugate() for emt in col] for col in result]
+    # Calculate the conjutgate transpose
+    result: Matrix = [[matrix[row][col].conjugate()
+            for row in range(d_n)] for col in range(d_m)]
     
     return result
 
