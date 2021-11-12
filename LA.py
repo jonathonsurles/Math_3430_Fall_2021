@@ -291,8 +291,8 @@ def conj_tpse(matrix: Matrix) -> Matrix:
         The conjugate transpose of the matrix, represented in the same way.
     """
     # Get the dimensions
-    d_m: int = len(matrix[0])  # m = number of rows
-    d_n: int = len(matrix)  # n = number of columns
+    d_m: int = len(matrix[0])  # m = number of rows in input
+    d_n: int = len(matrix)  # n = number of columns in input
     # Calculate the conjutgate transpose
     result: Matrix = [[matrix[row][col].conjugate()
             for row in range(d_n)] for col in range(d_m)]
