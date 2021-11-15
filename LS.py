@@ -23,7 +23,7 @@ def least_squares(matrix: Matrix, vector: Vector) -> Vector:
         The vector x in an equation Ax = b
     """
     # Result vector, initialized with None to spot errors
-    vec_x: Vector = [None for _ in matrix[0]]
+    vec_x: Vector = [None for _ in matrix]
     # Calculate Q, R
     mat_q: Matrix
     mat_r: Matrix
@@ -33,7 +33,7 @@ def least_squares(matrix: Matrix, vector: Vector) -> Vector:
 
     # Perform back substitution
     # Iterates x_el from (len(vec_x) - 1) to 0
-    for x_el in range(len(vec_x) - 1, 0 - 1, -1):
+    for x_el in range(len(matrix) - 1, 0 - 1, -1):
         # Find the contributions of known elements of x
         cont: complex = 0
         for i in range(x_el, len(vec_x)):
