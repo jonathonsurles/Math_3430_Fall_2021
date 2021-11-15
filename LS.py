@@ -34,7 +34,7 @@ def least_squares(matrix: Matrix, vector: Vector) -> Vector:
     # Calculate Q, R
     mat_q: Matrix
     mat_r: Matrix
-    mat_q, mat_r = QR.gram_schmidt(matrix)
+    mat_q, mat_r = QR.householder(matrix)
     # Calculate v = Q*b
     vec_v: Vector = LA.matrix_vector_multiply(LA.conj_tpse(mat_q), vector)
 
