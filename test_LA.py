@@ -117,8 +117,8 @@ def test_p_norm():
 
 def test_p_q_norm():
     """Tests the function LA.p_q_norm()"""
-    # TODO
-    assert False
+    assert LA.p_q_norm([[0, 0], [0, 0]]) == 0
+    assert LA.p_q_norm([[3, 4], [5, 12]]) == 18
 
 
 def test_inner_product():
