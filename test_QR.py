@@ -3,46 +3,16 @@
 
 import pytest
 import QR
+import LA
 
 
 # Allowable margin for error for any tests that use it
 MARGIN = .0001
-
-
-def equals_with_error(arg_a: list | complex,
-                      arg_b: list | complex,
-                      margin: float) -> bool:
-    """Tests if an item is equal to another within an allowable error range
-
-    Employs recursion. If the arguments are iterable, compare each matching
-    pair of elements in the arguments. Otherwise we have the base case, where
-    we compare the absolute value of the difference between the each element
-    (which we now know to be numbers) with the margin of error. If false, we
-    break recursion and return false, but if we get through all elements, we
-    return true.
-
-    Args:
-        arg_a: A list or a complex number to be compared.
-        arg_b: A list or a complex number to be compared. Must be the same
-          type as arg_a and if a list, must be the same length as arg_a
-
-        margin: A floating point number, the allowable error by which the
-                absolute value of the args can differ
-
-    Returns:
-        A boolean value, representing if the arguments are equal within the
-        given allowable error range
-    """
-    # Iterable case: compare corresponding elements
-    if hasattr(arg_a, '__iter__'):
-        for var_a, var_b in zip(arg_a, arg_b):
-            if not equals_with_error(var_a, var_b, margin):
-                return False
-    # Non-iterable case:
-    else:
-        if abs(arg_a - arg_b) > margin:
-            return False
-    return True
+# Lambdas for margin of error comparison
+vector_margin = lambda v1, v2 : LA.p_norm(LA.add_vectors(
+        LA.vector_scalar_multiply(v1, -1), v2))
+matrix_margin = lambda m1, m2 : LA.p_q_norm(LA.matrix_add(
+        LA.matrix_scalar_multiply(m1, -1), m2))
 
 
 def test_normalize():
@@ -86,17 +56,17 @@ def test_householder():
     expected_q1 = [[-.5, -.5, -.5, -.5], [.5, -.5, -.5, .5],
                    [-.5, .5, -.5, .5], [-.5, -.5, .5, .5]]
     expected_r1 = [[-2, 0, 0, 0], [-3, -5, 0, 0], [-2, 2, -4, 0]]
-    expected_1 = [expected_q1, expected_r1]
     test_case_1 = [[1, 1, 1, 1], [-1, 4, 4, -1], [4, -2, 2, 0]]
     actual_1 = QR.householder(test_case_1)
-    assert equals_with_error(actual_1, expected_1, MARGIN)
+    assert matrix_margin(actual_1[0], expected_q1) < MARGIN
+    assert matrix_margin(actual_1[1], expected_r1) < MARGIN
     # Test from atozmath.com: QR Decomposition (Householder Method) ex. 2
     expected_q2 = [[-2/3, -2/3, -1/3], [2/3, -1/3, -2/3], [-1/3, 2/3, -2/3]]
     expected_r2 = [[-3, 0, 0], [0, -3, 0], [-12, 12, -6]]
-    expected_2 = [expected_q2, expected_r2]
     test_case_2 = [[2, 2, 1], [-2, 1, 2], [18, 0, 0]]
     actual_2 = QR.householder(test_case_2)
-    assert equals_with_error(actual_2, expected_2, MARGIN)
+    assert matrix_margin(actual_2[0], expected_q2) < MARGIN
+    assert matrix_margin(actual_2[1], expected_r2) < MARGIN
 
 
 # Run tests if file is run directly
