@@ -8,11 +8,6 @@ import LA
 
 # Allowable margin for error for any tests that use it
 MARGIN = .0001
-# Lambdas for margin of error comparison
-vector_margin = lambda v1, v2 : LA.p_norm(LA.add_vectors(
-        LA.vector_scalar_multiply(v1, -1), v2))
-matrix_margin = lambda m1, m2 : LA.p_q_norm(LA.matrix_add(
-        LA.matrix_scalar_multiply(m1, -1), m2))
 
 
 def test_normalize():
@@ -58,15 +53,15 @@ def test_householder():
     expected_r1 = [[-2, 0, 0, 0], [-3, -5, 0, 0], [-2, 2, -4, 0]]
     test_case_1 = [[1, 1, 1, 1], [-1, 4, 4, -1], [4, -2, 2, 0]]
     actual_1 = QR.householder(test_case_1)
-    assert matrix_margin(actual_1[0], expected_q1) < MARGIN
-    assert matrix_margin(actual_1[1], expected_r1) < MARGIN
+    assert LA.matrix_margin(actual_1[0], expected_q1) < MARGIN
+    assert LA.matrix_margin(actual_1[1], expected_r1) < MARGIN
     # Test from atozmath.com: QR Decomposition (Householder Method) ex. 2
     expected_q2 = [[-2/3, -2/3, -1/3], [2/3, -1/3, -2/3], [-1/3, 2/3, -2/3]]
     expected_r2 = [[-3, 0, 0], [0, -3, 0], [-12, 12, -6]]
     test_case_2 = [[2, 2, 1], [-2, 1, 2], [18, 0, 0]]
     actual_2 = QR.householder(test_case_2)
-    assert matrix_margin(actual_2[0], expected_q2) < MARGIN
-    assert matrix_margin(actual_2[1], expected_r2) < MARGIN
+    assert LA.matrix_margin(actual_2[0], expected_q2) < MARGIN
+    assert LA.matrix_margin(actual_2[1], expected_r2) < MARGIN
 
 
 # Run tests if file is run directly

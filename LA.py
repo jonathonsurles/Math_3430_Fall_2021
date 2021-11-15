@@ -338,3 +338,10 @@ def outer_product(left_vector: Vector, right_vector: Vector) -> Matrix:
     # Perform the outer product
     result = matrix_multiply(left_vector_m, right_vector_ct)
     return result
+
+
+# Lambdas for margin of error comparison
+vector_margin = lambda v1, v2 : p_norm(add_vectors(
+        vector_scalar_multiply(v1, -1), v2))
+matrix_margin = lambda m1, m2 : p_q_norm(matrix_add(
+        matrix_scalar_multiply(m1, -1), m2))
