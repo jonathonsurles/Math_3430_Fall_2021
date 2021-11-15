@@ -115,6 +115,12 @@ def test_p_norm():
     assert LA.p_norm([3, 3+4j], inf=True) == 5.0
 
 
+def test_p_q_norm():
+    """Tests the function LA.p_q_norm()"""
+    # TODO
+    assert False
+
+
 def test_inner_product():
     """Tests the function LA.inner_product()"""
     # Test for real vectors

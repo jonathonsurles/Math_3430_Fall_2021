@@ -249,6 +249,24 @@ def p_norm(vector: Vector, p: float=2, inf: bool=False) -> float:
     return result
 
 
+def p_q_norm(matrix: Matrix, p: float=2, q: float=1) -> float:
+    """Finds the p,q norm of a vector for finite p, q. Defaults to 2,1 norm.
+
+    Find the p-norm of each input vector, and put those norms as a vector.
+    Then calculate the q-norm of the vector of norms and return it.
+
+    Args:
+        matrix: A matrix as a list of lists of complex numbers
+        p: the norm to take of the component vectors
+        q: the norm to take of the vector norms
+
+    Returns:
+        The p,q norm of the input matrix
+    """
+    norms: Vector = [p_norm(vec, p=p) for vec in matrix]
+    return p_norm(norms, p=q)
+
+
 def inner_product(left_vector: Vector, right_vector: Vector) -> complex:
     """Finds the inner product of two vectors.
 
