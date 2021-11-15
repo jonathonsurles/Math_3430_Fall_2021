@@ -24,8 +24,29 @@ def least_squares(matrix: Matrix, vector: Vector) -> Vector:
     """
     '''Plan
     Let Q, R such that QR = A and R is upper triangular and square
-    Calculate the vector c = Q*b, which is equal to Rx
+    Calculate the vector v = Q*b, which is equal to Rx
     Create an empty vector of the appropriate size to store x
     Use back subsitution to find the elements of x, since R is triangular
     Return R
     '''
+    # Result vector, initialized with None to spot errors
+    vec_x: Vector = [None for _ in matrix[0]]
+    # Calculate Q, R
+    mat_q: Matrix
+    mat_r: Matrix
+    mat_q, mat_r = QR.gram_schmidt(matrix)
+    # Calculate v = Q*b
+    vec_v: Vector = LA.matrix_vector_multiply(LA.conj_tpse(mat_q), vector)
+
+    # Perform back substitution
+    # Iterates x_el from (len(vec_x) - 1) to 0
+    for x_el in range(len(vec_x) - 1, 0 - 1, -1):
+        # Find the contributions of known elements of x
+        cont: complex = 0
+        for i in range(x_el, len(vec_x)):
+            if i != x_el:
+                cont += vec_x[i] * mat_r[i][x_el]
+        # Use the contribution and the vector v to find the element of x
+        vec_x[x_el] = (vec_v[x_el] - cont) / mat_r[x_el][x_el]
+
+    return vec_x
