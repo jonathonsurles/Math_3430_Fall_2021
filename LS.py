@@ -22,13 +22,6 @@ def least_squares(matrix: Matrix, vector: Vector) -> Vector:
     Returns:
         The vector x in an equation Ax = b
     """
-    '''Plan
-    Let Q, R such that QR = A and R is upper triangular and square
-    Calculate the vector v = Q*b, which is equal to Rx
-    Create an empty vector of the appropriate size to store x
-    Use back subsitution to find the elements of x, since R is triangular
-    Return R
-    '''
     # Result vector, initialized with None to spot errors
     vec_x: Vector = [None for _ in matrix[0]]
     # Calculate Q, R
