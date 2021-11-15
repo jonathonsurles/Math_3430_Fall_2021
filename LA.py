@@ -314,7 +314,6 @@ def conj_tpse(matrix: Matrix) -> Matrix:
     # Calculate the conjutgate transpose
     result: Matrix = [[matrix[row][col].conjugate()
             for row in range(d_n)] for col in range(d_m)]
-    
     return result
 
 
