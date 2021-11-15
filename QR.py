@@ -168,7 +168,7 @@ def householder(matrix: Matrix) -> list[Matrix, Matrix]:
     """
     # Dimensions of the input matrix for calculations
     d_m: int = len(matrix[0])  # m = number of rows
-    d_n: int = len(matrix)  # n = number of columns
+    # d_n: int = len(matrix)  # n = number of columns  UNUSED
 
     # If matrix is mxn, let matrix_q (currently Q*) = the mxm identity
     matrix_q: Matrix
