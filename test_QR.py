@@ -6,28 +6,28 @@ import QR
 import LA
 
 
-Test = tuple[tuple, object]  # The type that every Test will return for Demo
+Case = tuple[tuple, object]  # The type that every test will return for Demo
 
 
 # Allowable margin for error for any tests that use it
 MARGIN = .0001
 
 
-def test_normalize() -> Test:
+def test_normalize() -> Case:
     """Tests QR.normalize()"""
     assert QR.normalize([4, 0, 0]) == [[1, 0, 0], 4]
     assert QR.normalize([1, 1, 1]) == [[1/3**.5, 1/3**.5, 1/3**.5], 3**.5]
     return ([4, 0, 0],), [[1, 0, 0], 4]
 
 
-def test_orthagonalize() -> Test:
+def test_orthagonalize() -> Case:
     """Tests QR.orthagonalize()"""
     assert QR.orthagonalize([1, 1], [0, 1]) == [[1, 0], 1]
     assert QR.orthagonalize([-2.5, -2.5], [1, 0]) == [[0, -2.5], -2.5]
     return ([-2.5, -2.5], [1, 0]), [[0, -2.5], -2.5]
 
 
-def test_gram_schmidt() -> Test:
+def test_gram_schmidt() -> Case:
     """Tests QR.gram_schmidt()"""
     # Simple test with the identity
     # [[1, 0], [1, 1]] should produce Q=[[1, 0], [0, 1]] R=[[1, 0], [1, 1]
@@ -40,7 +40,7 @@ def test_gram_schmidt() -> Test:
     return ([[1, 0], [-3, -3]],), [[[1, 0], [0, 1]], [[1, 0], [1, 1]]]
 
 
-def test_orthonormalize() -> Test:
+def test_orthonormalize() -> Case:
     """Tests QR.orthonormalize()"""
     # Simple test with the identity
     # [[1, 0], [1, 1]] should produce [[1, 0], [0, 1]]
@@ -51,7 +51,7 @@ def test_orthonormalize() -> Test:
     return ([[1, 0], [-3, -3]],), [[1, 0], [0, -1]]
 
 
-def test_householder() -> Test:
+def test_householder() -> Case:
     """Tests QR.householder()"""
     # Yoinked from tests from the internet because I like nice numbers
     # Test from atozmath.com: QR Decomposition (Householder Method) ex. 1

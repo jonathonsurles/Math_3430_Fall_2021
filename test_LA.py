@@ -20,10 +20,10 @@ matrix_c = [[5, 8, 6], [0, 5, 2], [9, 4, 3]]
 matrix_d = [[-4-7j, 6-8j, -5j], [2+9j, 3-4j, 6+2j], [-5+3j, -1+7j, -1+2j]]
 
 
-Test = tuple[tuple, object]  # The type that every Test will return for Demo
+Case = tuple[tuple, object]  # The type that every test will return for Demo
 
 
-def test_add_vectors() -> Test:
+def test_add_vectors() -> Case:
     """Tests the function LA.add_vectors()
     """
     tst_1 = (vector_a, vector_b)
@@ -35,7 +35,7 @@ def test_add_vectors() -> Test:
     return tst_1, exp_1
 
 
-def test_vector_scalar_multiply() -> Test:
+def test_vector_scalar_multiply() -> Case:
     """Tests the function LA.vector_scalar_multiply()"""
     # Test for real integers
     result_1 = [4, 8, 16]
@@ -46,7 +46,7 @@ def test_vector_scalar_multiply() -> Test:
     return (vector_a, SCALAR_A), result_1
 
 
-def test_matrix_scalar_multiply() -> Test:
+def test_matrix_scalar_multiply() -> Case:
     """Tests the function LA.matrix_scalar_multiply()"""
     # Test for real integers
     result_1 = [[4, 32, 16], [32, 28, 24], [12, 0, 36]]
@@ -57,7 +57,7 @@ def test_matrix_scalar_multiply() -> Test:
     return (matrix_a, SCALAR_A), result_1
 
 
-def test_matrix_add() -> Test:
+def test_matrix_add() -> Case:
     """Tests the function LA.matrix_add()"""
     # Test for real integers
     result_1 = [[6, 14, 6], [9, 14, 6], [7, 7, 16]]
@@ -68,7 +68,7 @@ def test_matrix_add() -> Test:
     return (matrix_a, matrix_b), result_1
 
 
-def test_matrix_vector_multiply() -> Test:
+def test_matrix_vector_multiply() -> Case:
     """Tests the function LA.matrix_vector_multiply()"""
     # Test 1 for real integers
     result_1 = [29, 22, 52]
@@ -79,7 +79,7 @@ def test_matrix_vector_multiply() -> Test:
     return (matrix_a, vector_a), result_1
 
 
-def test_matrix_multiply() -> Test:
+def test_matrix_multiply() -> Case:
     """Tests the function LA.matrix_multiply()"""
     # Test 1 for real integers
     result_1 = [[59, 82, 74], [57, 57, 46], [81, 81, 121]]
@@ -90,7 +90,7 @@ def test_matrix_multiply() -> Test:
     return (matrix_a, matrix_b), result_1
 
 
-def test_abs_value() -> Test:
+def test_abs_value() -> Case:
     """Tests the function LA.abs_value()"""
     # Test for negative float
     assert LA.abs_value(-3.4) == 3.4
@@ -103,7 +103,7 @@ def test_abs_value() -> Test:
     return (3-4j,), 5.0
 
 
-def test_p_norm_finite() -> Test:
+def test_p_norm_finite() -> Case:
     """Tests the function LA.p_norm_finite()"""
     # Test for real vector, euclidian norm
     assert LA.p_norm_finite([3, 4]) == 5.0
@@ -111,7 +111,7 @@ def test_p_norm_finite() -> Test:
     return ([3, 4],), 5.0
 
 
-def test_inf_norm() -> Test:
+def test_inf_norm() -> Case:
     """Tests the function LA.inf_norm()"""
     # Test for real vector
     assert LA.inf_norm([3, 4]) == 4.0
@@ -120,7 +120,7 @@ def test_inf_norm() -> Test:
     return ([3, 4],), 4.0
 
 
-def test_p_norm() -> Test:
+def test_p_norm() -> Case:
     """Tests the function LA.p_norm()"""
     # Repeats the tests from test_p_norm_finite and test_inf_norm
     assert LA.p_norm([3, 4]) == 5.0
@@ -130,14 +130,14 @@ def test_p_norm() -> Test:
     return ([3, 4],), 10.0
 
 
-def test_p_q_norm() -> Test:
+def test_p_q_norm() -> Case:
     """Tests the function LA.p_q_norm()"""
     assert LA.p_q_norm([[0, 0], [0, 0]]) == 0
     assert LA.p_q_norm([[3, 4], [5, 12]]) == 18
     return ([[3, 4], [5, 12]],), 18
 
 
-def test_inner_product() -> Test:
+def test_inner_product() -> Case:
     """Tests the function LA.inner_product()"""
     # Test for real vectors
     assert LA.inner_product(vector_a, vector_b) == 13
@@ -148,7 +148,7 @@ def test_inner_product() -> Test:
     return (vector_a, vector_b), 13
 
 
-def test_conj_tpse() -> Test:
+def test_conj_tpse() -> Case:
     """Tests the function LA.conj_tpse()"""
     test_1 = [[1, 3+3j], [-5, -5-2j]]
     expect_1 = [[1, -5], [3-3j, -5+2j]]
@@ -159,7 +159,7 @@ def test_conj_tpse() -> Test:
     return (test_1,), expect_1
 
 
-def test_outer_product() -> Test:
+def test_outer_product() -> Case:
     """Tests the function LA.outer_product()"""
     # Test for real vectors
     assert LA.outer_product(vector_a, vector_b) == \
