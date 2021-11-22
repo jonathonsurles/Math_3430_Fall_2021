@@ -26,7 +26,7 @@ def main():
         # Module header
         print(f'Module {m_name}: {m_val.__doc__}')
         # Build a dictionary of all functions in the current module
-        m_fun = {obj:m_val.__getattribute__(obj)
+        m_fun = {obj:getattr(m_val, obj)
                 for obj in dir(m_val) if obj[0] != '_' and str.islower(obj[0])}
         # The test module for the current code module
         t_mod = test_mods['test_' + m_name]
@@ -36,7 +36,7 @@ def main():
             print(f'  Function {m_name}.{f_name}: {shortdoc}')
             # The test function for the current code function
             try:
-                t_fun = t_mod.__getattribute__('test_' + f_name)  # The test function
+                t_fun = getattr(t_mod, 'test_' + f_name)  # The test function
                 test = t_fun()  # The test function returns a test case, so use that
                 print('    Example use case:')
                 print(f'    {m_name}.{f_name}({", ".join(map(str, test[0]))}) = {test[1]}')
