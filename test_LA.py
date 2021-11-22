@@ -24,8 +24,7 @@ Case = tuple[tuple, object]  # The type that every test will return for Demo
 
 
 def test_add_vectors() -> Case:
-    """Tests the function LA.add_vectors()
-    """
+    """Tests the function LA.add_vectors()"""
     tst_1 = (vector_a, vector_b)
     exp_1 = [4, 3, 6]
     assert LA.add_vectors(tst_1[0], tst_1[1]) == exp_1
