@@ -1,0 +1,5 @@
+A type of project that I would be particularly in that has always eluded my
+understanding is a website with a login system. I've dabbled with HTML, CSS
+Javascript, PHP, SQL, proper password encryption, etc., but having proper
+proficiency in each of them and their combination is something that I don't
+have a grasp on but would very much like to.

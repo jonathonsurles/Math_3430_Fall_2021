@@ -1,0 +1,4 @@
+An advantage to floating-point as opposed to fixed-point representation is
+that a floating-point number has a very large range, as it is essentially a
+computer's form of scientific notation. Thus the range of a floating point
+system is (literally) exponentially larger than a fixed point system.
