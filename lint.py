@@ -13,6 +13,7 @@ def main():
              'test_QR.py',
              'LS.py',
              'test_LS.py',
+             'Demo.py',
              'lint.py']
     Run(args + files)
 
