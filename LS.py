@@ -13,7 +13,8 @@ Matrix = list[list[complex]]
 def least_squares(matrix: Matrix, vector: Vector) -> Vector:
     """Finds the least squares solution of a matrix-vector product, Ax = b
 
-    ...
+    First, finds the QR factorization of the input matrix.  Solve the equation
+    for Rx = Q*b, then perform back substitution to find x, and return.
 
     Args:
         matrix: The matrix A in an equation Ax = b
